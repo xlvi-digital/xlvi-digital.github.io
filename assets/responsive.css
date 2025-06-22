@@ -25,10 +25,10 @@
   }
   .home .home-content {
     max-width: 50rem;
-    height: 50vh;
   }
   .home-image img {
     height: 100%;
+    margin-top: -20rem;
   }
 
   .tagline {
@@ -126,6 +126,10 @@
     padding: 0 3% 2rem;
     justify-content: center;
     text-align: center;
+  }
+
+  .home .home-content {
+    height: 50vh;
   }
 
   .home-content h3 {
