@@ -25,10 +25,11 @@
   }
   .home .home-content {
     max-width: 50rem;
+    height: 100vh;
   }
   .home-image img {
     height: 100%;
-    margin-top: -20rem;
+    /* margin-top: -20rem; */
   }
 
   .tagline {
@@ -128,9 +129,9 @@
     text-align: center;
   }
 
-  .home .home-content {
+  /* .home .home-content {
     height: 50vh;
-  }
+  } */
 
   .home-content h3 {
     font-size: 2.6rem;
@@ -144,7 +145,7 @@
   }
 
   .home-image {
-    margin-top: -8rem;
+    margin-top: -50rem;
   }
 
   .home-image::before {
