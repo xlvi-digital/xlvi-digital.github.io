@@ -295,6 +295,10 @@ section {
 
 /* Box List */
 /* Container Grid */
+.list {
+  background-color: var(--bg-color);
+}
+
 .card-container {
   display: grid;
   gap: 20px;
@@ -454,7 +458,7 @@ section {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background: radial-gradient(#fff, var(--main-color));
+  background: radial-gradient(var(--bg-color), var(--main-color));
 }
 
 .about-img img {
@@ -471,6 +475,7 @@ section {
   line-height: 1.2;
   font-size: 4.5rem;
   color: var(--main-color);
+  text-shadow: var(--shadow-color);
 }
 
 .about .about-content h3 {
