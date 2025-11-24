@@ -25,7 +25,7 @@
   }
   .home .home-content {
     max-width: 50rem;
-    height: 100vh !important;
+    height: 100vh;
   }
 
   .home-image {
@@ -131,15 +131,15 @@
     font-size: 5rem;
   }
 
-  /* .home-image {
-    margin-top: -50rem;
+  .home-image {
+    margin-top: 1rem;
   }
 
   .home-image::before {
     height: 20vh;
     filter: blur(20px);
     transform: translateY(-10%);
-  } */
+  }
 
   .tagline h5 {
     font-size: 2rem;

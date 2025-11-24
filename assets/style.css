@@ -1,3 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+}
+
 :root {
   --bg-color: #fdfdfd;
   --text-color: #333;
@@ -12,6 +22,7 @@
   --text-color: #fdfdfd;
   --shadow-color: rgba(0, 0, 0, 0.7);
 }
+
 html {
   font-size: 62.5%;
   overflow-x: hidden;
@@ -149,6 +160,7 @@ section {
   /* max-width: 75rem; */
   text-align: center;
 }
+
 .btn {
   display: inline-block;
   padding: 1rem 2.6rem;
@@ -486,4 +498,79 @@ section {
 .about .about-content p {
   font-size: 1.6rem;
   margin: 1.5rem 0 3rem;
+}
+
+.contact h2 {
+  margin-bottom: 3rem;
+}
+
+.contact form {
+  max-width: 70rem;
+  margin: 1rem auto;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contact form .input-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.contact form .input-box input,
+.contact form textarea {
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  color: var(--text-color);
+  background: var(--bg-color);
+  border-radius: 0.8rem;
+  margin: 0.7rem 0;
+  box-shadow: 0 0.1rem 0.5rem var(--shadow-color);
+}
+
+.contact form .input-box input {
+  width: 49%;
+}
+
+.contact form textarea {
+  resize: none;
+}
+
+.contact form .btn {
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2rem 7%;
+  background-color: var(--main-color);
+}
+
+.footer-text p {
+  font-size: 1.6rem;
+  color: var(--white-color);
+}
+
+.footer-iconTop a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem;
+  background: var(--white-color);
+  border-radius: 0.8rem;
+  border: 0.2rem solid var(--main-color);
+  outline: 0.2rem solid transparent;
+  transition: 0.5s ease;
+}
+.footer-iconTop a:hover {
+  outline-color: var(--white-color);
+}
+.footer-iconTop a i {
+  font-size: 2.4rem;
+  color: #333;
 }
