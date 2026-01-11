@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Halaman Pembayaran | XLVI-Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="images/xlvi-logo.png" />
+
+    <!-- Google Font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #6a11cb, #8e2de2);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        color: #fff;
+      }
+
+      .payment-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        max-width: 420px;
+        width: 100%;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .payment-container h1 {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .payment-container p {
+        text-align: center;
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 25px;
+      }
+
+      .payment-card {
+        background: #fff;
+        color: #333;
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 18px;
+      }
+
+      .payment-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .payment-header img {
+        width: 48px;
+        height: auto;
+      }
+
+      .payment-header h2 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .rekening-number {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+
+      .rekening-name {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 12px;
+      }
+
+      .copy-btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #7b2ff7;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .copy-btn:hover {
+        background: #6520d6;
+      }
+
+      .note {
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.8;
+        margin-top: 10px;
+      }
+      .toast {
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        background: #7b2ff7;
+        color: #fff;
+        padding: 12px 18px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: all 0.4s ease;
+        z-index: 9999;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="toast" class="toast">Nomor berhasil disalin</div>
+
+    <div class="payment-container">
+      <h1>Halaman Pembayaran</h1>
+      <p>Silakan lakukan pembayaran ke salah satu rekening di bawah ini</p>
+
+      <!-- Mandiri -->
+      <div class="payment-card">
+        <div class="payment-header">
+          <img src="images/mandiri.png" alt="Bank Mandiri" />
+          <h2>Bank Mandiri</h2>
+        </div>
+        <div class="rekening-number" id="mandiri">1820010457273</div>
+        <div class="rekening-name">a.n. Reyhan Tri Ramadan</div>
+        <button class="copy-btn" onclick="copyText('mandiri')">Salin Nomor Rekening</button>
+      </div>
+
+      <!-- DANA -->
+      <div class="payment-card">
+        <div class="payment-header">
+          <img src="images/dana.png" alt="DANA" />
+          <h2>DANA</h2>
+        </div>
+        <div class="rekening-number" id="dana">081313362467</div>
+        <div class="rekening-name">a.n. Reyhan Tri Ramadan</div>
+        <button class="copy-btn" onclick="copyText('dana')">Salin Nomor DANA</button>
+      </div>
+
+      <div class="note">Pastikan nominal pembayaran sesuai dengan kesepakatan</div>
+    </div>
+
+    <script>
+      function copyText(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          showToast("Nomor berhasil disalin");
+        });
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.innerText = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2500);
+      }
+    </script>
+  </body>
+</html>
