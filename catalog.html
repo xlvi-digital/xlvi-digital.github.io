@@ -4,315 +4,78 @@
     <meta charset="UTF-8" />
     <title>Katalog Undangan | XLVI-Digital</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
-
-      body {
-        background: #f4f6fb;
-        color: #333;
-      }
-
-      /* ================= JUMBOTRON ================= */
-      .jumbotron {
-        background: linear-gradient(135deg, #5f2c82, #49a09d);
-        color: #fff;
-        padding: 70px 20px;
-        text-align: center;
-      }
-
-      .jumbotron h1 {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
-      .jumbotron p {
-        font-size: 15px;
-        max-width: 600px;
-        margin: auto;
-        opacity: 0.95;
-      }
-
-      /* ================= FILTER ================= */
-      .filter-section {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 30px 20px;
-      }
-
-      .filter-btn {
-        padding: 8px 16px;
-        border-radius: 20px;
-        border: none;
-        font-size: 13px;
-        cursor: pointer;
-        background: #eae6ff;
-        color: #5a2edc;
-        transition: 0.3s;
-      }
-
-      .filter-btn.active,
-      .filter-btn:hover {
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
-        color: #fff;
-      }
-
-      /* ================= PREVIEW CATALOG ================= */
-      .preview-catalog {
-        max-width: 1100px;
-        margin: 0 auto 60px;
-        padding: 0 20px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-      }
-
-      .preview-card {
-        background: #fff;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: 0.3s;
-      }
-
-      .preview-card:hover {
-        transform: translateY(-6px);
-      }
-
-      .preview-card img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-      }
-
-      .preview-card h3 {
-        font-size: 16px;
-        font-weight: 600;
-        margin: 12px;
-      }
-
-      .preview-card .tag {
-        margin: 0 12px;
-        font-size: 12px;
-        color: #7b2ff7;
-        font-weight: 500;
-      }
-
-      .preview-card p {
-        font-size: 13px;
-        color: #666;
-        padding: 0 12px 15px;
-      }
-
-      /* ================= PAKET ================= */
-      .catalog {
-        max-width: 1100px;
-        margin: auto;
-        padding: 0 20px 60px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-      }
-
-      .card {
-        background: #fff;
-        border-radius: 16px;
-        padding: 22px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: 0.3s;
-      }
-
-      .card:hover {
-        transform: translateY(-6px);
-      }
-
-      .card h2 {
-        font-size: 20px;
-        margin-bottom: 8px;
-      }
-
-      .price {
-        font-size: 22px;
-        font-weight: 700;
-        color: #7b2ff7;
-        margin-bottom: 10px;
-      }
-
-      .description {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 18px;
-        line-height: 1.6;
-      }
-
-      .button-group {
-        display: flex;
-        gap: 10px;
-      }
-
-      .btn {
-        flex: 1;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 500;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-      }
-
-      .btn-demo {
-        background: #eae6ff;
-        color: #5a2edc;
-      }
-
-      .btn-order {
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
-        color: #fff;
-      }
-
-      .footer {
-        text-align: center;
-        font-size: 12px;
-        color: #777;
-        padding-bottom: 30px;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/catalog.css" />
   </head>
   <body>
-    <!-- JUMBOTRON -->
     <section class="jumbotron">
       <h1>Katalog Undangan Digital</h1>
-      <p>Pilih tema undangan terbaik sesuai konsep acara Anda bersama XLVI-Digital</p>
+      <p>Pilih tema & paket undangan terbaik bersama XLVI-Digital</p>
     </section>
 
-    <!-- FILTER TEMA -->
+    <div class="stepper">
+      <div class="step active">1 Pilih Tema</div>
+      <div class="step">2 Jenis Paket</div>
+      <div class="step">3 Pilih Paket</div>
+      <div class="step">4 WhatsApp</div>
+    </div>
+
+    <!-- FILTER -->
     <section class="filter-section">
-      <button class="filter-btn active" onclick="filterTheme('all', event)">Semua Tema</button>
-      <button class="filter-btn" onclick="filterTheme('botanical', event)">Botanical</button>
-      <button class="filter-btn" onclick="filterTheme('luxury', event)">Luxury</button>
-      <button class="filter-btn" onclick="filterTheme('romantic', event)">Romantic</button>
+      <button class="filter-btn active" onclick="filterTheme('all',event)">Semua Tema</button>
+      <button class="filter-btn" onclick="filterTheme('botanical',event)">Botanical</button>
+      <button class="filter-btn" onclick="filterTheme('luxury',event)">Luxury</button>
+      <button class="filter-btn" onclick="filterTheme('romantic',event)">Romantic</button>
     </section>
 
-    <!-- FILTER FOTO -->
-    <section class="filter-section">
-      <button class="filter-btn active" onclick="filterPhoto('all', event)">Semua</button>
-      <button class="filter-btn" onclick="filterPhoto('yes', event)">Dengan Foto</button>
-      <button class="filter-btn" onclick="filterPhoto('no', event)">Tanpa Foto</button>
-    </section>
-
-    <!-- PREVIEW CATALOG -->
     <section class="preview-catalog">
-      <div class="preview-card" data-theme="botanical" data-photo="yes">
-        <img src="images/portfolio/1.png" />
-        <h3>Botanical Green</h3>
-        <span class="tag">Botanical · Foto</span>
-        <p>Nuansa natural dengan dedaunan segar dan foto pasangan.</p>
-      </div>
+      <div class="preview-card" data-theme="botanical" data-photo="yes" onclick="selectTheme(this,'Botanical Green','Botanical','Dengan Foto')">
+        <div class="img-wrapper">
+          <img src="images/portfolio/1.png" alt="Botanical Green" />
+        </div>
 
-      <div class="preview-card" data-theme="botanical" data-photo="no">
-        <img src="images/portfolio/2.png" />
-        <h3>Botanical Simple</h3>
-        <span class="tag">Botanical · Non Foto</span>
-        <p>Desain bersih dan minimalis tanpa foto.</p>
-      </div>
+        <div class="card-body">
+          <h3>Botanical Green</h3>
+          <span class="tag">Botanical · Foto</span>
+          <p>Nuansa natural dan segar.</p>
 
-      <div class="preview-card" data-theme="luxury" data-photo="yes">
-        <img src="images/portfolio/3.png" />
-        <h3>Luxury Gold</h3>
-        <span class="tag">Luxury · Foto</span>
-        <p>Tema premium dengan nuansa emas dan eksklusif.</p>
-      </div>
-
-      <div class="preview-card" data-theme="romantic" data-photo="no">
-        <img src="images/portfolio/4.png" />
-        <h3>Romantic Classic</h3>
-        <span class="tag">Romantic · Non Foto</span>
-        <p>Nuansa lembut dan romantis klasik.</p>
-      </div>
-    </section>
-
-    <!-- PAKET -->
-    <section class="catalog">
-      <div class="card">
-        <h2>Paket Basic</h2>
-        <div class="price">Rp 99.000</div>
-        <div class="description">Undangan simpel dan elegan.</div>
-        <div class="button-group">
-          <a href="#" class="btn btn-demo">🔍 Demo</a>
-          <a href="https://wa.me/6282119502976" class="btn btn-order">💬 Pesan</a>
+          <div class="card-action">
+            <button class="btn-demo" type="button">Demo</button>
+            <button class="btn-select" type="button">Pilih</button>
+          </div>
         </div>
       </div>
 
-      <div class="card">
-        <h2>Paket Premium</h2>
-        <div class="price">Rp 199.000</div>
-        <div class="description">Desain custom dan fitur lengkap.</div>
-        <div class="button-group">
-          <a href="#" class="btn btn-demo">🔍 Demo</a>
-          <a href="https://wa.me/6282119502976" class="btn btn-order">💬 Pesan</a>
+      <div class="preview-card" data-theme="luxury" data-photo="yes" onclick="selectTheme(this,'Luxury Gold','Luxury','Dengan Foto')">
+        <div class="img-wrapper">
+          <img src="images/portfolio/3.png" alt="Luxury Gold" />
         </div>
-      </div>
 
-      <div class="card">
-        <h2>Paket Custom</h2>
-        <div class="price">Mulai Rp 299.000</div>
-        <div class="description">Full custom sesuai request.</div>
-        <div class="button-group">
-          <a href="#" class="btn btn-demo">🔍 Demo</a>
-          <a href="https://wa.me/6282119502976" class="btn btn-order">💬 Pesan</a>
+        <div class="card-body">
+          <h3>Luxury Gold</h3>
+          <span class="tag">Luxury · Foto</span>
+          <p>Elegan dan eksklusif.</p>
+
+          <div class="card-action">
+            <button class="btn-demo" type="button">Demo</button>
+            <button class="btn-select" type="button">Pilih</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="footer">© 2026 XLVI-Digital</div>
+    <!-- PACKAGE TYPE -->
+    <section class="package-type">
+      <div class="type-card" onclick="selectPackageType('Digital Only',this)">Digital Only</div>
+      <div class="type-card" onclick="selectPackageType('Hybrid',this)">Hybrid (Digital + Fisik)</div>
+    </section>
 
-    <script>
-      let themeFilter = "all";
-      let photoFilter = "all";
+    <!-- PACKAGE LIST -->
+    <section class="catalog" id="packageList"></section>
 
-      function filterTheme(theme, e) {
-        themeFilter = theme;
-        setActive(e);
-        applyFilter();
-      }
+    <div id="orderBar" class="order-bar hidden"></div>
 
-      function filterPhoto(photo, e) {
-        photoFilter = photo;
-        setActive(e);
-        applyFilter();
-      }
-
-      function applyFilter() {
-        document.querySelectorAll(".preview-card").forEach((card) => {
-          const theme = card.dataset.theme;
-          const photo = card.dataset.photo;
-
-          const show = (themeFilter === "all" || theme === themeFilter) && (photoFilter === "all" || photo === photoFilter);
-
-          card.style.display = show ? "block" : "none";
-        });
-      }
-
-      function setActive(e) {
-        e.target.parentElement.querySelectorAll(".filter-btn").forEach((btn) => btn.classList.remove("active"));
-        e.target.classList.add("active");
-      }
-    </script>
+    <script src="assets/catalog.js"></script>
   </body>
 </html>
