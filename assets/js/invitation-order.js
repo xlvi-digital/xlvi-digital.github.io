@@ -7,14 +7,15 @@ document.addEventListener('alpine:init', () => {
 
         orderData: {
             selectedTemplate: null,
+            selectedOrderType: null,   // 'digital' | 'hybrid'
             selectedPackageId: null,
-            packageType: 'Digital',
-            packageName: 'Elegant',
+            packageType: null,
+            packageName: null,
             hybridQuantity: 0,
             totalPrice: 0
         },
 
-        // Flat package list for the grid
+        // ── All packages ──────────────────────────────────────────
         allPackages: [
             {
                 id: 'd-elegant',
@@ -88,41 +89,42 @@ document.addEventListener('alpine:init', () => {
             },
         ],
 
+        // ── Init ──────────────────────────────────────────────────
         init() {
-            // 1. Load templates from catalogData
+            // 1. Load undangan templates from catalogData
             if (typeof catalogData !== 'undefined') {
                 this.catalogItems = catalogData.filter(item => item.orderType === 'undangan');
             }
 
-            // 2. Check for template in URL or LocalStorage
+            // 2. Restore template from URL param or localStorage
             const urlParams = new URLSearchParams(window.location.search);
             const templateSlug = urlParams.get('template');
             const savedTemplate = localStorage.getItem('xlvi_selected_template');
 
             let currentTemplate = null;
-
             if (templateSlug) {
                 currentTemplate = this.catalogItems.find(item => item.slug === templateSlug);
             } else if (savedTemplate) {
-                try {
-                    currentTemplate = JSON.parse(savedTemplate);
-                } catch (e) {
-                    localStorage.removeItem('xlvi_selected_template');
-                }
+                try { currentTemplate = JSON.parse(savedTemplate); }
+                catch (e) { localStorage.removeItem('xlvi_selected_template'); }
             }
-
             if (currentTemplate) {
                 this.selectTemplate(currentTemplate, false, false);
             }
 
-            // 3. Load previous package selection
+            // 3. Restore previous order session
             const savedOrder = localStorage.getItem('xlvi_order_temp');
             if (savedOrder) {
                 try {
                     const parsed = JSON.parse(savedOrder);
-                    const pkg = this.allPackages.find(p => p.id === parsed.selectedPackageId);
-                    if (pkg) {
-                        this.selectPackage(pkg, false);
+                    // Restore order type first
+                    if (parsed.selectedOrderType) {
+                        this.orderData.selectedOrderType = parsed.selectedOrderType;
+                    }
+                    // Restore package selection
+                    if (parsed.selectedPackageId) {
+                        const pkg = this.allPackages.find(p => p.id === parsed.selectedPackageId);
+                        if (pkg) this.selectPackage(pkg, false);
                     }
                 } catch (e) {
                     localStorage.removeItem('xlvi_order_temp');
@@ -130,20 +132,15 @@ document.addEventListener('alpine:init', () => {
             }
         },
 
-        // ── Toast System ──────────────────────────────────────────
-        addToast(message, icon = '✦') {
-            const id = Date.now() + Math.random();
-            this.toasts.push({ id, message, icon });
-            setTimeout(() => {
-                this.removeToast(id);
-            }, 3000);
+        // ── Computed: filtered packages by selectedOrderType ──────
+        get filteredPackages() {
+            const type = this.orderData.selectedOrderType;
+            if (!type) return [];
+            const categoryMap = { digital: 'Digital', hybrid: 'Hybrid' };
+            return this.allPackages.filter(p => p.category === categoryMap[type]);
         },
 
-        removeToast(id) {
-            this.toasts = this.toasts.filter(t => t.id !== id);
-        },
-
-        // ── Template Getters ──────────────────────────────────────
+        // ── Computed: filtered templates by search ────────────────
         get filteredTemplates() {
             if (!this.searchQuery) return this.catalogItems;
             const q = this.searchQuery.toLowerCase();
@@ -154,6 +151,17 @@ document.addEventListener('alpine:init', () => {
             );
         },
 
+        // ── Toast System ──────────────────────────────────────────
+        addToast(message, icon = '✦') {
+            const id = Date.now() + Math.random();
+            this.toasts.push({ id, message, icon });
+            setTimeout(() => this.removeToast(id), 3000);
+        },
+
+        removeToast(id) {
+            this.toasts = this.toasts.filter(t => t.id !== id);
+        },
+
         // ── Actions ───────────────────────────────────────────────
         selectTemplate(template, shouldScroll = true, showToast = true) {
             this.orderData.selectedTemplate = template;
@@ -161,6 +169,17 @@ document.addEventListener('alpine:init', () => {
             this.step = 2;
             if (showToast) this.addToast(`Template "${template.title}" berhasil dipilih`, '🎨');
             if (shouldScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        selectOrderType(type) {
+            // If type changes, reset selected package to avoid conflict
+            if (this.orderData.selectedOrderType !== type) {
+                this.resetPackage();
+                this.orderData.selectedOrderType = type;
+                this.saveOrderTemp();
+                const label = type === 'digital' ? 'Digital Only' : 'Hybrid (Digital + Fisik)';
+                this.addToast(`Jenis pesanan "${label}" dipilih`, '🎯');
+            }
         },
 
         selectPackage(pkg, showToast = true) {
@@ -176,6 +195,14 @@ document.addEventListener('alpine:init', () => {
             }
         },
 
+        resetPackage() {
+            this.orderData.selectedPackageId = null;
+            this.orderData.packageType = null;
+            this.orderData.packageName = null;
+            this.orderData.hybridQuantity = 0;
+            this.orderData.totalPrice = 0;
+        },
+
         changeTemplate() {
             this.orderData.selectedTemplate = null;
             localStorage.removeItem('xlvi_selected_template');
@@ -184,6 +211,7 @@ document.addEventListener('alpine:init', () => {
 
         saveOrderTemp() {
             localStorage.setItem('xlvi_order_temp', JSON.stringify({
+                selectedOrderType: this.orderData.selectedOrderType,
                 selectedPackageId: this.orderData.selectedPackageId
             }));
         },
@@ -202,6 +230,10 @@ document.addEventListener('alpine:init', () => {
                 this.step = 1;
                 return;
             }
+            if (!this.orderData.selectedOrderType) {
+                this.addToast('Silakan pilih jenis pesanan terlebih dahulu.', '⚠️');
+                return;
+            }
             if (!this.orderData.selectedPackageId) {
                 this.addToast('Silakan pilih salah satu paket di atas.', '⚠️');
                 return;
@@ -212,19 +244,24 @@ document.addEventListener('alpine:init', () => {
 
         sendToWhatsApp() {
             const d = this.orderData;
+            const orderTypeLabel = d.selectedOrderType === 'hybrid'
+                ? 'Hybrid (Digital + Fisik)'
+                : 'Digital Only';
+
             let msg = `Halo XLVI.ID, saya ingin memesan layanan Undangan Digital.\n\n`;
             msg += `=== DETAIL PESANAN ===\n`;
-            msg += `Template : ${d.selectedTemplate?.title}\n`;
-            msg += `Paket    : ${d.packageName} (${d.packageType})\n`;
+            msg += `Template      : ${d.selectedTemplate?.title}\n`;
+            msg += `Kategori      : ${d.selectedTemplate?.category}\n`;
+            msg += `Jenis Pesanan : ${orderTypeLabel}\n`;
+            msg += `Paket         : ${d.packageName}\n`;
             if (d.packageType === 'Hybrid') {
-                msg += `Fisik    : ${d.hybridQuantity} pcs\n`;
+                msg += `Undangan Fisik: ${d.hybridQuantity} pcs\n`;
             }
-            msg += `Total Est: ${this.formatIDR(d.totalPrice)}\n\n`;
+            msg += `Total Estimasi: ${this.formatIDR(d.totalPrice)}\n\n`;
             msg += `Catatan: Saya sudah memilih template dan paket. Mohon info selanjutnya untuk pengisian data mempelai.`;
 
             const phone = '6282119502976';
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     }));
 });

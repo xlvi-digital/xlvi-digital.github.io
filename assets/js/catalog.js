@@ -8,13 +8,9 @@ document.addEventListener('alpine:init', () => {
 
         categories: [
             'Semua Layanan',
-            'Website Undangan Digital',
-            'Website Company Profile',
-            'Website UMKM / Landing Page Jualan',
-            'Website Rental / Sewa',
-            'Website E-Commerce Sederhana',
-            'Jasa Pembuatan CV / Resume',
-            'Jasa Design / Landing Page Custom'
+            'Undangan Digital',
+            'E-Commerce Sederhana',
+            'CV Lamaran Modern'
         ],
 
         // Modal States
@@ -25,7 +21,9 @@ document.addEventListener('alpine:init', () => {
         checkoutItem: null,
 
         // Form Object
-        formData: {},
+        formData: {
+            jenisEcommerce: ''
+        },
 
         get filteredItems() {
             return this.items.filter(item => {
@@ -57,7 +55,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         openOrder(item) {
-            if (item.category === 'Website Undangan Digital' || item.orderType === 'undangan') {
+            if (item.category === 'Undangan Digital' || item.orderType === 'undangan') {
                 // Persist selection before redirect
                 localStorage.setItem('xlvi_selected_template', JSON.stringify(item));
                 window.location.href = `invitation-order.html`;
@@ -65,7 +63,9 @@ document.addEventListener('alpine:init', () => {
             }
             this.checkoutItem = item;
             this.isOrderModalOpen = true;
-            this.formData = {}; // reset form fields
+            this.formData = {
+                jenisEcommerce: ''
+            }; // reset form fields
             document.body.style.overflow = 'hidden';
         },
 
@@ -88,12 +88,7 @@ document.addEventListener('alpine:init', () => {
             const ci = this.checkoutItem;
             // Get phone from global siteData or fallback
             let phone = "6282119502976";
-            // In Alpine JS nested properties can be accessed by $store or direct context if scoped properly,
-            // we will search window or this safely
-            if (typeof document.querySelector('[x-data="siteData"]') !== 'undefined') {
-                phone = "6282119502976"; // We hardcode here to be safe since global contexts can be tricky
-            }
-
+            
             let msg = `Halo XLVI.ID, saya ingin memesan layanan ${ci.category}.\n\n`;
             msg += `*Data Layanan:*\n`;
             msg += `▪ Jasa: ${ci.category}\n`;

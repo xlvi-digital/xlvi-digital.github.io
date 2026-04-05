@@ -64,48 +64,35 @@ document.addEventListener('alpine:init', () => {
             }
         ],
 
-        // Data Catalog Undangan Digital
+        // Data Catalog (Mini version for Home)
         searchQuery: '',
         activeFilter: 'all',
         templates: [
             {
                 id: 1,
                 name: 'Botanical Green',
-                category: 'Botanical',
-                type: 'Dengan Foto',
+                category: 'Undangan Digital',
                 image: 'images/portfolio/tema-botanical-green.png',
                 desc: 'Nuansa natural dan segar untuk momen spesial Anda.',
-                price: 'Mulai Rp 50.000',
+                price: 'Mulai Rp 80.000',
                 previewUrl: '#'
             },
             {
                 id: 2,
                 name: 'Modern ATS Professional',
-                category: 'CV',
-                type: 'Template',
+                category: 'CV Lamaran Modern',
                 image: 'images/portfolio/2.png',
                 desc: 'CV berkelas yang didesain agar mudah tersortir sistem ATS.',
-                price: 'Mulai Rp 75.000',
+                price: 'Mulai Rp 50.000',
                 previewUrl: '#'
             },
             {
                 id: 3,
-                name: 'Luxury Gold',
-                category: 'Luxury',
-                type: 'Dengan Foto',
-                image: 'images/portfolio/3.png',
-                desc: 'Elegan dan eksklusif dengan sentuhan warna emas mewah.',
-                price: 'Mulai Rp 50.000',
-                previewUrl: '#'
-            },
-            {
-                id: 4,
-                name: 'Romantic Pink',
-                category: 'Romantic',
-                type: 'Tanpa Foto',
-                image: 'images/portfolio/1.png', // placeholder
-                desc: 'Sederhana dan manis dengan warna pink pastel.',
-                price: 'Mulai Rp 50.000',
+                name: 'Corporate Elegance',
+                category: 'E-Commerce Sederhana',
+                image: 'images/servies3.png',
+                desc: 'Desain korporat profesional untuk bisnis Anda.',
+                price: 'Mulai Rp 2.500.000',
                 previewUrl: '#'
             }
         ],
@@ -115,20 +102,14 @@ document.addEventListener('alpine:init', () => {
             return this.templates.filter(item => {
                 const matchesSearch = item.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                     item.desc.toLowerCase().includes(this.searchQuery.toLowerCase());
-                const matchesFilter = this.activeFilter === 'all' || item.category.toLowerCase() === this.activeFilter.toLowerCase();
+                const matchesFilter = this.activeFilter === 'all' || item.category === this.activeFilter;
                 return matchesSearch && matchesFilter;
             });
         },
 
-        // Category options for filter
+        // Category options for filter (Simplified to match actual data)
         get categories() {
-            const cats = ['all'];
-            this.templates.forEach(t => {
-                if (!cats.includes(t.category.toLowerCase())) {
-                    cats.push(t.category.toLowerCase());
-                }
-            });
-            return cats;
+            return ['all', 'Undangan Digital', 'E-Commerce Sederhana', 'CV Lamaran Modern'];
         },
 
         // Data Pricing Bundles

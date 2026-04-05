@@ -5,11 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pilih Paket Undangan | XLVI.ID</title>
-  <meta name="description" content="Pilih paket undangan digital premium Anda di XLVI.ID — Digital Elegant, Exclusive, atau Hybrid dengan undangan fisik cetak.">
+  <meta name="description"
+    content="Pilih paket undangan digital premium Anda di XLVI.ID — Digital Elegant, Exclusive, atau Hybrid dengan undangan fisik cetak.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/invitation.css">
@@ -46,8 +48,7 @@
     <!-- Fixed Toast Zone -->
     <div class="toast-zone" aria-live="polite">
       <template x-for="toast in toasts" :key="toast.id">
-        <div class="toast-item"
-          x-show="true"
+        <div class="toast-item" x-show="true"
           x-transition:enter="toast-enter"
           x-transition:enter-start="toast-enter-start"
           x-transition:enter-end="toast-enter-end"
@@ -109,12 +110,8 @@
 
         <div class="template-search-bar">
           <span class="search-icon">🔍</span>
-          <input
-            type="text"
-            id="template-search"
-            x-model="searchQuery"
-            placeholder="Cari template (misal: Botanical, Luxury...)"
-            class="search-input">
+          <input type="text" id="template-search" x-model="searchQuery"
+            placeholder="Cari template (misal: Botanical, Luxury...)" class="search-input">
         </div>
 
         <template x-if="filteredTemplates.length === 0">
@@ -150,7 +147,7 @@
 
         <div class="section-head">
           <h1>Pilih <span>Paket</span> Undangan</h1>
-          <p>Sesuaikan paket dengan kebutuhan hari istimewa Anda — digital atau hybrid dengan cetak fisik.</p>
+          <p>Sesuaikan paket dengan kebutuhan hari istimewa Anda.</p>
         </div>
 
         <!-- No Template Warning -->
@@ -162,115 +159,201 @@
           </div>
         </template>
 
-        <!-- Selected Template Summary Card -->
+        <!-- ── Template selected: show full step 2 ── -->
         <template x-if="orderData.selectedTemplate">
-          <div class="selected-tpl-card">
-            <div class="stpl-img-wrap">
-              <img :src="orderData.selectedTemplate.image" :alt="orderData.selectedTemplate.title" class="stpl-img">
+          <div>
+
+            <!-- Selected Template Summary Card -->
+            <div class="selected-tpl-card">
+              <div class="stpl-img-wrap">
+                <img :src="orderData.selectedTemplate.image" :alt="orderData.selectedTemplate.title" class="stpl-img">
+              </div>
+              <div class="stpl-info">
+                <span class="stpl-badge">✦ Template Terpilih</span>
+                <h3 class="stpl-name" x-text="orderData.selectedTemplate.title"></h3>
+                <p class="stpl-cat" x-text="orderData.selectedTemplate.category"></p>
+              </div>
+              <button @click="changeTemplate()" class="btn-change-tpl" id="btn-change-template">
+                <span>🔄</span> Ganti Template
+              </button>
             </div>
-            <div class="stpl-info">
-              <span class="stpl-badge">✦ Template Terpilih</span>
-              <h3 class="stpl-name" x-text="orderData.selectedTemplate.title"></h3>
-              <p class="stpl-cat" x-text="orderData.selectedTemplate.category"></p>
-            </div>
-            <button @click="changeTemplate()" class="btn-change-tpl" id="btn-change-template">
-              <span>🔄</span> Ganti Template
-            </button>
-          </div>
-        </template>
 
-        <!-- Package Selection Area -->
-        <div x-show="orderData.selectedTemplate" class="package-section">
+            <!-- ══════════════════════════════════════ -->
+            <!-- PILIH JENIS PESANAN                    -->
+            <!-- ══════════════════════════════════════ -->
+            <div class="order-type-section">
+              <div class="order-type-head">
+                <h2 class="ot-title">Pilih <span>Jenis Pesanan</span></h2>
+                <p class="ot-subtitle">Tentukan terlebih dahulu apakah Anda ingin undangan digital saja atau paket hybrid (digital&nbsp;+&nbsp;fisik).</p>
+              </div>
 
-          <div class="pkg-section-label">
-            <span>Semua Paket Tersedia</span>
-            <div class="pkg-legend">
-              <span><span class="legend-dot digital"></span> Digital</span>
-              <span><span class="legend-dot hybrid"></span> Hybrid</span>
-            </div>
-          </div>
+              <div class="order-type-grid">
 
-          <div class="package-grid">
-            <template x-for="pkg in allPackages" :key="pkg.id">
-              <div class="package-card"
-                :class="{ 'pkg-active': orderData.selectedPackageId === pkg.id }"
-                @click="selectPackage(pkg)"
-                :id="'pkg-' + pkg.id">
-
-                <!-- Dipilih Badge -->
-                <div class="pkg-selected-badge" x-show="orderData.selectedPackageId === pkg.id">
-                  ✓ Dipilih
+                <!-- Digital Only -->
+                <div class="order-type-card"
+                  :class="{ 'ot-active': orderData.selectedOrderType === 'digital' }"
+                  @click="selectOrderType('digital')"
+                  id="ot-digital">
+                  <div class="ot-active-badge" x-show="orderData.selectedOrderType === 'digital'">✓ Dipilih</div>
+                  <div class="ot-icon">📱</div>
+                  <div class="ot-body">
+                    <h3 class="ot-name">Digital Only</h3>
+                    <p class="ot-desc">Website undangan online yang elegan. Bagikan via link ke semua tamu tanpa batas.</p>
+                    <ul class="ot-perks">
+                      <li>Mulai dari Rp&nbsp;80.000</li>
+                      <li>2 pilihan paket (Elegant / Exclusive)</li>
+                      <li>Aktif selamanya</li>
+                    </ul>
+                  </div>
+                  <div class="ot-check" x-show="orderData.selectedOrderType === 'digital'">✓</div>
                 </div>
 
-                <!-- Header: Category + Name -->
-                <div class="pkg-header">
-                  <span class="pkg-type-badge" :class="pkg.category.toLowerCase()" x-text="pkg.category"></span>
-                  <span class="pkg-name-tag" x-text="pkg.name"></span>
-                </div>
-
-                <!-- Price Row -->
-                <div class="pkg-price-row">
-                  <span class="pkg-price" x-text="formatIDR(pkg.price)"></span>
-                  <template x-if="pkg.qty">
-                    <span class="pkg-qty-tag" x-text="pkg.qty + ' pcs'"></span>
-                  </template>
-                </div>
-
-                <!-- Description -->
-                <p class="pkg-desc" x-text="pkg.desc"></p>
-
-                <!-- Features -->
-                <ul class="pkg-features">
-                  <template x-for="feat in pkg.features" :key="feat">
-                    <li>
-                      <span class="feat-icon">✓</span>
-                      <span x-text="feat"></span>
-                    </li>
-                  </template>
-                </ul>
-
-                <!-- CTA Button -->
-                <div class="pkg-footer">
-                  <button
-                    class="btn-select-pkg"
-                    :class="orderData.selectedPackageId === pkg.id ? 'btn-pkg-active' : 'btn-pkg-outline'">
-                    <span x-text="orderData.selectedPackageId === pkg.id ? '✓ Paket Dipilih' : 'Pilih Paket Ini'"></span>
-                  </button>
+                <!-- Hybrid -->
+                <div class="order-type-card"
+                  :class="{ 'ot-active': orderData.selectedOrderType === 'hybrid' }"
+                  @click="selectOrderType('hybrid')"
+                  id="ot-hybrid">
+                  <div class="ot-active-badge" x-show="orderData.selectedOrderType === 'hybrid'">✓ Dipilih</div>
+                  <div class="ot-icon">📦</div>
+                  <div class="ot-body">
+                    <h3 class="ot-name">Hybrid <span class="ot-tag">Digital + Fisik</span></h3>
+                    <p class="ot-desc">Undangan digital <em>plus</em> undangan cetak fisik berkualitas premium dikirim ke alamat Anda.</p>
+                    <ul class="ot-perks">
+                      <li>Mulai dari Rp&nbsp;170.000</li>
+                      <li>Pilihan 25 / 50 / 100 pcs</li>
+                      <li>Kertas premium 260gsm</li>
+                    </ul>
+                  </div>
+                  <div class="ot-check" x-show="orderData.selectedOrderType === 'hybrid'">✓</div>
                 </div>
 
               </div>
-            </template>
+            </div><!-- end order-type-section -->
+
+            <!-- ══════════════════════════════════════ -->
+            <!-- DAFTAR PAKET (muncul setelah memilih) -->
+            <!-- ══════════════════════════════════════ -->
+
+            <!-- Placeholder sebelum memilih jenis -->
+            <div class="pkg-placeholder" x-show="!orderData.selectedOrderType" x-transition>
+              <div class="pkg-ph-icon">👆</div>
+              <p>Silakan pilih jenis pesanan terlebih dahulu</p>
+            </div>
+
+            <!-- Package Grid -->
+            <div class="package-section" x-show="orderData.selectedOrderType" x-transition>
+
+              <div class="pkg-section-label">
+                <span x-text="orderData.selectedOrderType === 'digital' ? 'Paket Digital Only' : 'Paket Hybrid (Digital + Fisik)'"></span>
+                <span class="pkg-count" x-text="filteredPackages.length + ' paket tersedia'"></span>
+              </div>
+
+              <div class="package-grid">
+                <template x-for="pkg in filteredPackages" :key="pkg.id">
+                  <div class="package-card"
+                    :class="{ 'pkg-active': orderData.selectedPackageId === pkg.id }"
+                    @click="selectPackage(pkg)"
+                    :id="'pkg-' + pkg.id">
+
+                    <!-- Dipilih Badge -->
+                    <div class="pkg-selected-badge" x-show="orderData.selectedPackageId === pkg.id">✓ Dipilih</div>
+
+                    <!-- Header: Category + Name -->
+                    <div class="pkg-header">
+                      <span class="pkg-type-badge" :class="pkg.category.toLowerCase()" x-text="pkg.category"></span>
+                      <span class="pkg-name-tag" x-text="pkg.name"></span>
+                    </div>
+
+                    <!-- Price Row -->
+                    <div class="pkg-price-row">
+                      <span class="pkg-price" x-text="formatIDR(pkg.price)"></span>
+                      <template x-if="pkg.qty">
+                        <span class="pkg-qty-tag" x-text="pkg.qty + ' pcs'"></span>
+                      </template>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="pkg-desc" x-text="pkg.desc"></p>
+
+                    <!-- Features -->
+                    <ul class="pkg-features">
+                      <template x-for="feat in pkg.features" :key="feat">
+                        <li>
+                          <span class="feat-icon">✓</span>
+                          <span x-text="feat"></span>
+                        </li>
+                      </template>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <div class="pkg-footer">
+                      <button class="btn-select-pkg"
+                        :class="orderData.selectedPackageId === pkg.id ? 'btn-pkg-active' : 'btn-pkg-outline'">
+                        <span x-text="orderData.selectedPackageId === pkg.id ? '✓ Paket Dipilih' : 'Pilih Paket Ini'"></span>
+                      </button>
+                    </div>
+
+                  </div>
+                </template>
+              </div>
+
+              <!-- Desktop CTA (visible md+, hidden on mobile) -->
+              <div class="desktop-cta" x-show="orderData.selectedOrderType">
+                <div class="dcta-info">
+                  <template x-if="orderData.selectedPackageId">
+                    <span class="dcta-summary"
+                      x-text="'Paket: ' + orderData.packageName + ' ' + orderData.packageType + (orderData.hybridQuantity ? ' ' + orderData.hybridQuantity + ' pcs' : '') + ' — ' + formatIDR(orderData.totalPrice)">
+                    </span>
+                  </template>
+                  <template x-if="!orderData.selectedPackageId">
+                    <span class="dcta-hint">Pilih salah satu paket di atas untuk melanjutkan</span>
+                  </template>
+                </div>
+                <button id="btn-go-confirmation-desktop"
+                  @click="goToConfirmation()"
+                  class="btn-next-cta"
+                  :disabled="!orderData.selectedPackageId"
+                  :class="{ 'btn-next-disabled': !orderData.selectedPackageId }">
+                  Lanjut ke Konfirmasi →
+                </button>
+              </div>
+
+            </div><!-- end package-section -->
+
           </div>
+        </template>
 
-        </div>
-
-        <!-- Bottom floating CTA -->
-        <div class="bottom-cta-bar" x-show="orderData.selectedTemplate">
-          <div class="cta-info">
+        <!-- ══════════════════════════════════════ -->
+        <!-- MOBILE STICKY BOTTOM CTA              -->
+        <!-- ══════════════════════════════════════ -->
+        <div class="mobile-sticky-cta" x-show="orderData.selectedTemplate && step === 2">
+          <div class="mscta-info">
             <template x-if="orderData.selectedPackageId">
-              <div class="cta-pkg-info">
-                <span class="cta-label">Paket Dipilih</span>
-                <span class="cta-pkg-name"
+              <div class="mscta-details">
+                <span class="mscta-label">Paket Dipilih</span>
+                <span class="mscta-pkg"
                   x-text="orderData.packageName + ' ' + orderData.packageType + (orderData.hybridQuantity ? ' ' + orderData.hybridQuantity + ' pcs' : '')">
                 </span>
               </div>
             </template>
             <template x-if="orderData.selectedPackageId">
-              <div class="cta-total-info">
-                <span class="cta-label">Total Estimasi</span>
-                <span class="cta-total-price" x-text="formatIDR(orderData.totalPrice)"></span>
+              <div class="mscta-price-block">
+                <span class="mscta-label">Total</span>
+                <span class="mscta-total" x-text="formatIDR(orderData.totalPrice)"></span>
               </div>
             </template>
             <template x-if="!orderData.selectedPackageId">
-              <span class="cta-empty-hint">👆 Pilih salah satu paket di atas untuk melanjutkan</span>
+              <span class="mscta-hint">
+                <template x-if="!orderData.selectedOrderType">Pilih jenis pesanan terlebih dahulu</template>
+                <template x-if="orderData.selectedOrderType">Pilih salah satu paket di atas</template>
+              </span>
             </template>
           </div>
-          <button
-            id="btn-go-confirmation"
+          <button id="btn-go-confirmation"
             @click="goToConfirmation()"
-            class="btn-next-cta"
+            class="btn-mscta"
             :disabled="!orderData.selectedPackageId"
-            :class="{ 'btn-next-disabled': !orderData.selectedPackageId }">
+            :class="{ 'btn-mscta-disabled': !orderData.selectedPackageId }">
             Lanjut ke Konfirmasi →
           </button>
         </div>
@@ -280,7 +363,7 @@
       <!-- ================================ -->
       <!-- STEP 3: KONFIRMASI               -->
       <!-- ================================ -->
-      <section class="order-section" x-show="step === 3" x-transition>
+      <section class="order-section" x-show="step === 3">
         <div class="section-head">
           <h1>Konfirmasi <span>Pesanan</span></h1>
           <p>Periksa kembali detail pesanan Anda sebelum melanjutkan ke WhatsApp.</p>
@@ -295,12 +378,12 @@
               <span class="conf-value" x-text="orderData.selectedTemplate?.title"></span>
             </div>
             <div class="conf-item">
-              <span class="conf-label">Kategori</span>
-              <span class="conf-value" x-text="orderData.selectedTemplate?.category"></span>
+              <span class="conf-label">Jenis Pesanan</span>
+              <span class="conf-value" x-text="orderData.selectedOrderType === 'hybrid' ? 'Hybrid (Digital + Fisik)' : 'Digital Only'"></span>
             </div>
             <div class="conf-item">
               <span class="conf-label">Paket</span>
-              <span class="conf-value" x-text="orderData.packageName + ' — ' + orderData.packageType"></span>
+              <span class="conf-value" x-text="orderData.packageName"></span>
             </div>
             <template x-if="orderData.packageType === 'Hybrid'">
               <div class="conf-item">
@@ -316,14 +399,15 @@
           </div>
 
           <p class="conf-note">
-            Data pengisi undangan (nama mempelai, tanggal, lokasi, dll.) akan dikirimkan dan dikonfirmasi lebih lanjut melalui WhatsApp bersama tim kami.
+            Data pengisi undangan (nama mempelai, tanggal, lokasi, dll.) akan dikirimkan dan dikonfirmasi lebih lanjut
+            melalui WhatsApp bersama tim kami.
           </p>
 
           <div class="conf-actions">
             <button id="btn-send-whatsapp" @click="sendToWhatsApp()" class="btn-wa-send">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.557 4.122 1.528 5.855L0 24l6.335-1.563A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.369l-.359-.214-3.72.917.977-3.63-.235-.374A9.793 9.793 0 012.182 12C2.182 6.589 6.589 2.182 12 2.182S21.818 6.589 21.818 12 17.411 21.818 12 21.818z"/>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.557 4.122 1.528 5.855L0 24l6.335-1.563A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.369l-.359-.214-3.72.917.977-3.63-.235-.374A9.793 9.793 0 012.182 12C2.182 6.589 6.589 2.182 12 2.182S21.818 6.589 21.818 12 17.411 21.818 12 21.818z" />
               </svg>
               Kirim Pesanan via WhatsApp
             </button>

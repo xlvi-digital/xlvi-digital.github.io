@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Katalog Layanan | XLVI.ID</title>
-  <meta name="description" content="Katalog layanan profesional XLVI.ID - Undangan Digital, CV Modern, Company Profile, Rental Website, dan Custom Web.">
+  <meta name="description" content="Katalog layanan profesional XLVI.ID - Undangan Digital, E-Commerce Sederhana, dan CV Lamaran Modern.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,25 +53,26 @@
     <!-- FILTER & SEARCH SECTION -->
     <section class="filter-section">
       <div class="filter-container">
-        <!-- Dropdown Category -->
-        <div class="custom-select-wrapper">
-          <select x-model="selectedCategory" class="catalog-input">
-            <template x-for="cat in categories" :key="cat">
-              <option :value="cat" x-text="cat"></option>
-            </template>
-          </select>
-          <div class="filter-icon">▼</div>
+        <!-- Pill Categories -->
+        <div class="category-pills">
+          <template x-for="cat in categories" :key="cat">
+            <button class="pill-btn" 
+                    :class="{ 'active': selectedCategory === cat }" 
+                    @click="selectedCategory = cat" 
+                    x-text="cat"></button>
+          </template>
         </div>
 
         <!-- Search Bar -->
         <div class="search-wrapper">
-          <input type="text" x-model="searchQuery" class="catalog-input" placeholder="Cari nama project, kategori, keyword...">
+          <input type="text" x-model="searchQuery" class="catalog-input form-pill" placeholder="Cari nama project, kategori, keyword...">
+          <div class="search-icon-inside">🔍</div>
         </div>
       </div>
     </section>
 
     <!-- THEME GRID -->
-    <section class="catalog-grid-section" style="padding: 0 8% 80px;">
+    <section class="catalog-grid-section">
       <div class="portfolio-grid">
         <template x-for="item in filteredItems" :key="item.id">
           <div class="portfolio-card">
@@ -169,95 +170,32 @@
                 <input type="text" x-model="formData.namaPemesan" class="form-control" required placeholder="Cth: Budi Santoso">
               </div>
 
-              <!-- JIKA WEBSITE UNDANGAN DIGITAL -->
-              <template x-if="checkoutItem.orderType === 'undangan'">
+              <!-- JIKA E-COMMERCE SEDERHANA -->
+              <template x-if="checkoutItem.category === 'E-Commerce Sederhana' || checkoutItem.orderType === 'ecommerce'">
                 <div>
                   <div class="form-group">
-                    <label>Nama Mempelai / Acara:</label>
-                    <input type="text" x-model="formData.namaAcara" class="form-control" placeholder="Cth: Romeo & Juliet" required>
+                    <label>Jenis Website E-Commerce:</label>
+                    <div class="custom-select-wrapper">
+                      <select x-model="formData.jenisEcommerce" class="form-control" required>
+                        <option value="">Pilih Jenis...</option>
+                        <option value="Sewa / Rental">Sewa / Rental</option>
+                        <option value="Jual Beli / Toko Online">Jual Beli / Toko Online</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label>Tanggal Pelaksanaan:</label>
-                    <input type="date" x-model="formData.tanggalAcara" class="form-control" required>
+                    <label>Nama Brand / Toko / Bisnis:</label>
+                    <input type="text" x-model="formData.namaBisnis" class="form-control" placeholder="Cth: Hijab Fashion" required>
                   </div>
                   <div class="form-group">
-                    <label>Pilihan Paket (Basic/Premium/Custom):</label>
-                    <select x-model="formData.paketPilihan" class="form-control">
-                      <option value="">Pilih Paket...</option>
-                      <option value="Basic">Basic</option>
-                      <option value="Premium">Premium</option>
-                      <option value="Custom">Custom</option>
-                    </select>
+                    <label>Bidang Usaha / Produk Utama:</label>
+                    <input type="text" x-model="formData.bidangUsaha" class="form-control" placeholder="Cth: Jual pakaian muslimah" required>
                   </div>
                 </div>
               </template>
 
-              <!-- JIKA COMPANY PROFILE -->
-              <template x-if="checkoutItem.orderType === 'company_profile'">
-                <div>
-                  <div class="form-group">
-                    <label>Nama Bisnis / Perusahaan:</label>
-                    <input type="text" x-model="formData.namaBisnis" class="form-control" placeholder="Cth: PT Jaya Abadi" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Bidang Usaha:</label>
-                    <input type="text" x-model="formData.bidangUsaha" class="form-control" placeholder="Cth: Kontraktor Alat Berat" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Sudah punya Domain/Hosting?</label>
-                    <select x-model="formData.statusDomain" class="form-control">
-                      <option value="">Pilih Status...</option>
-                      <option value="Belum, butuh dicarikan">Belum, butuh dicarikan</option>
-                      <option value="Sudah punya">Sudah punya</option>
-                    </select>
-                  </div>
-                </div>
-              </template>
-
-              <!-- JIKA UMKM / JUALAN -->
-              <template x-if="checkoutItem.orderType === 'umkm'">
-                <div>
-                  <div class="form-group">
-                    <label>Nama Usaha Makanan/Jasa:</label>
-                    <input type="text" x-model="formData.namaUsaha" class="form-control" placeholder="Cth: Nasi Goreng Gila" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Produk / Jasa Utama:</label>
-                    <input type="text" x-model="formData.produkUtama" class="form-control" placeholder="Cth: Makanan pedas siap saji" required>
-                  </div>
-                </div>
-              </template>
-
-              <!-- JIKA RENTAL -->
-              <template x-if="checkoutItem.orderType === 'rental'">
-                <div>
-                  <div class="form-group">
-                    <label>Nama Usaha Rental:</label>
-                    <input type="text" x-model="formData.namaRental" class="form-control" placeholder="Cth: Sewa Kamera Bandung" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Jenis Barang Disewakan (Kamera/Mobil dll):</label>
-                    <input type="text" x-model="formData.jenisRental" class="form-control" placeholder="Cth: Kamera & Lensa" required>
-                  </div>
-                </div>
-              </template>
-
-              <!-- JIKA ECOMMERCE -->
-              <template x-if="checkoutItem.orderType === 'ecommerce'">
-                <div>
-                  <div class="form-group">
-                    <label>Nama Brand / Toko:</label>
-                    <input type="text" x-model="formData.namaToko" class="form-control" placeholder="Cth: Hijab Fashion" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Estimasi Jumlah Produk Awal:</label>
-                    <input type="text" x-model="formData.jumlahProduk" class="form-control" placeholder="Cth: 10 - 20 Item" required>
-                  </div>
-                </div>
-              </template>
-
-              <!-- JIKA CV / RESUME -->
-              <template x-if="checkoutItem.orderType === 'cv'">
+              <!-- JIKA CV LAMARAN MODERN -->
+              <template x-if="checkoutItem.category === 'CV Lamaran Modern' || checkoutItem.orderType === 'cv'">
                 <div>
                   <div class="form-group">
                     <label>Nama Lengkap (Untuk CV):</label>
@@ -266,24 +204,6 @@
                   <div class="form-group">
                     <label>Posisi Incaran:</label>
                     <input type="text" x-model="formData.posisiDilamar" class="form-control" placeholder="Cth: Digital Marketer" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Sudah ada draft data pengalaman?</label>
-                    <select x-model="formData.statusDataCv" class="form-control">
-                      <option value="">Pilih...</option>
-                      <option value="Sudah Ada (PDF/Word)">Sudah Ada (PDF/Word)</option>
-                      <option value="Belum Ada">Belum Ada</option>
-                    </select>
-                  </div>
-                </div>
-              </template>
-
-              <!-- JIKA CUSTOM -->
-              <template x-if="checkoutItem.orderType === 'custom'">
-                <div>
-                  <div class="form-group">
-                    <label>Deskripsi Singkat Keinginan Web:</label>
-                    <input type="text" x-model="formData.deskripsiCustom" class="form-control" placeholder="Cth: Web portal berita spesifik" required>
                   </div>
                 </div>
               </template>

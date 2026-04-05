@@ -2,20 +2,20 @@ const catalogData = [
   {
     id: 1,
     title: "Botanical Green",
-    category: "Website Undangan Digital",
+    category: "Undangan Digital",
     slug: "botanical-green",
-    image: "images/portfolio/1.png",
+    image: "images/portfolio/tema-botanical-green.png",
     shortDescription: "Template undangan digital elegan dengan tema floral, cocok untuk pernikahan konsep outdoor.",
     tags: ["Elegan", "Floral", "Outdoor"],
     priceStart: "Rp 80.000",
     features: ["Galeri Foto Menarik", "Buku Tamu (RSVP)", "Navigasi Google Maps", "Amplop Digital (QR Code)", "Latar Belakang Musik"],
-    demoLink: "#",
+    demoLink: "https://xlvi.my.id/tema-botanical-no-image/",
     orderType: "undangan"
   },
   {
     id: 2,
     title: "Luxury Gold",
-    category: "Website Undangan Digital",
+    category: "Undangan Digital",
     slug: "luxury-gold",
     image: "images/portfolio/3.png",
     shortDescription: "Elegan dan eksklusif dengan aksen warna emas untuk momen megah Anda.",
@@ -28,7 +28,7 @@ const catalogData = [
   {
     id: 3,
     title: "Corporate Elegance",
-    category: "Website Company Profile",
+    category: "E-Commerce Sederhana",
     slug: "corporate-elegance",
     image: "images/servies3.png",
     shortDescription: "Informasi bisnis kredibel dengan desain korporat untuk membangun rasa percaya klien.",
@@ -36,12 +36,12 @@ const catalogData = [
     priceStart: "Rp 2.500.000",
     features: ["Desain Mobile Responsive", "Halaman Layanan Lengkap", "Profil Tim/Direksi", "Integrasi Live Chat", "Basic SEO"],
     demoLink: "#",
-    orderType: "company_profile"
+    orderType: "ecommerce"
   },
   {
     id: 4,
     title: "Creative Agency",
-    category: "Website Company Profile",
+    category: "E-Commerce Sederhana",
     slug: "creative-agency",
     image: "images/portfolio/2.png",
     shortDescription: "Website dinamis berjiwa muda yang dirancang khusus untuk agensi dan startup.",
@@ -49,12 +49,12 @@ const catalogData = [
     priceStart: "Rp 3.000.000",
     features: ["Portfolio Dinamis", "Testimoni Slider", "Animasi Halus", "Form Kontak Terintegrasi WA"],
     demoLink: "#",
-    orderType: "company_profile"
+    orderType: "ecommerce"
   },
   {
     id: 5,
     title: "Local Culinary",
-    category: "Website UMKM / Landing Page Jualan",
+    category: "E-Commerce Sederhana",
     slug: "local-culinary",
     image: "images/servies.png",
     shortDescription: "Landing page spesifik untuk promosi usaha kuliner dengan call-to-action ke ojek online/WA.",
@@ -62,12 +62,12 @@ const catalogData = [
     priceStart: "Rp 800.000",
     features: ["Galeri Menu", "Tautan GoFood/GrabFood", "Tombol Order WhatsApp", "Testimoni Pelanggan"],
     demoLink: "#",
-    orderType: "umkm"
+    orderType: "ecommerce"
   },
   {
     id: 6,
     title: "Aurora Outdoor Rentals",
-    category: "Website Rental / Sewa",
+    category: "E-Commerce Sederhana",
     slug: "aurora-outdoor",
     image: "images/home.png",
     shortDescription: "Website penyajian katalog alat outdoor dengan fitur ketersediaan dan booking sederhana.",
@@ -75,12 +75,12 @@ const catalogData = [
     priceStart: "Rp 1.500.000",
     features: ["Katalog Peralatan Sewa", "Harga per Hari", "Form Request Booking", "Syarat dan Ketentuan Sewa"],
     demoLink: "#",
-    orderType: "rental"
+    orderType: "ecommerce"
   },
   {
     id: 7,
     title: "Fashion Essentials",
-    category: "Website E-Commerce Sederhana",
+    category: "E-Commerce Sederhana",
     slug: "fashion-essentials",
     image: "images/servies.png",
     shortDescription: "Katalog online sederhana yang aman dan ramah pemula untuk toko fashion pakaian.",
@@ -93,7 +93,7 @@ const catalogData = [
   {
     id: 8,
     title: "Modern ATS Format",
-    category: "Jasa Pembuatan CV / Resume",
+    category: "CV Lamaran Modern",
     slug: "modern-ats",
     image: "images/portfolio/2.png",
     shortDescription: "Pembuatan profil profesional Anda yang dioptimalkan agar mudah lulus screening sistem ATS.",
@@ -102,18 +102,5 @@ const catalogData = [
     features: ["Review Konten CV", "Format Ramah ATS", "Bahasa Inggris / Indonesia", "Revisi Minor"],
     demoLink: "#",
     orderType: "cv"
-  },
-  {
-    id: 9,
-    title: "Custom Web App",
-    category: "Jasa Design / Landing Page Custom",
-    slug: "custom-web-app",
-    image: "images/home.png",
-    shortDescription: "Sistem aplikasi web spesifik sesuai dengan alur bisnis unik dan kompleks Anda.",
-    tags: ["Sistem", "Custom", "Advanced"],
-    priceStart: "Mulai Rp 5.000.000",
-    features: ["Analisis Kebutuhan", "UI/UX Custom", "Dashboard Admin", "Integrasi API Eksternal"],
-    demoLink: "#",
-    orderType: "custom"
   }
 ];
