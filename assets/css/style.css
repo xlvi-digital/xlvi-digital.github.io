@@ -102,6 +102,7 @@ body {
 .logo span {
   background: var(--gradient-neon);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -171,6 +172,7 @@ body {
 .hero-content h1 span {
   background: var(--gradient-neon);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -660,17 +662,26 @@ section {
 
 /* Footer */
 footer {
-  padding: 60px 8%;
+  padding: 50px 8%;
   background: var(--bg-deep);
   border-top: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+footer p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .footer-nav {
   display: flex;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 20px 30px;
   list-style: none;
 }
 
@@ -678,6 +689,11 @@ footer {
   text-decoration: none;
   color: var(--text-muted);
   font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--primary-color);
 }
 
 /* Animations */
@@ -733,9 +749,32 @@ footer {
   .hero-content h1 { font-size: 40px; }
   .service-row, .service-row.reverse { flex-direction: column; gap: 40px; }
   .contact-container { grid-template-columns: 1fr; }
+
+  /* Footer mobile */
+  footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 6%;
+    gap: 20px;
+  }
+
+  .footer-nav {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 500px) {
   .hero-content h1 { font-size: 32px; }
   .pricing-card { padding: 30px 20px; }
+
+  /* Footer extra small */
+  footer {
+    padding: 32px 5%;
+  }
+
+  .footer-nav {
+    gap: 14px 20px;
+    font-size: 13px;
+  }
 }
