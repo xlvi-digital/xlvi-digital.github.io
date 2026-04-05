@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan | XLVI.ID</title>
+  <meta name="description" content="Layanan digital XLVI.ID: Undangan Digital, CV Modern ATS Friendly, Website Company Profile, Custom Website / Landing Page.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/services.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="siteData">
+  <!-- Background Blur Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+    
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" :class="{ 'active-link': window.location.pathname.endsWith(link.url) || (window.location.pathname.endsWith('/') && link.url === 'index.html') }" x-text="link.name"></a></li>
+      </template>
+    </ul>
+
+    <a :href="'https://wa.me/' + contactNumber" class="nav-cta" target="_blank">Pesan Sekarang</a>
+    
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section untuk Services -->
+  <header class="hero-page">
+    <div class="section-head hero-head">
+      <h1>Layanan Digital <span>XLVI.ID</span></h1>
+      <p>Dari portofolio personal hingga identitas bisnis raksasa, kami menyediakan solusi digital premium yang tepat sasaran.</p>
+    </div>
+  </header>
+
+  <!-- Services Section -->
+  <section class="services" style="padding-top: 0;">
+    <template x-for="(srv, index) in services" :key="srv.id">
+      <div class="service-row" :class="{'reverse': index % 2 !== 0}">
+        <div class="service-img">
+          <img :src="srv.image" :alt="srv.title">
+        </div>
+        <div class="service-text">
+          <h3 x-text="srv.title"></h3>
+          <p x-text="srv.desc"></p>
+          <ul class="service-features">
+            <template x-for="feat in srv.features">
+              <li x-text="feat"></li>
+            </template>
+          </ul>
+          <div class="hero-btns" style="margin-top: 30px;">
+            <template x-if="srv.link">
+              <a :href="srv.link" class="btn btn-primary" x-text="srv.btnText"></a>
+            </template>
+            <template x-if="!srv.link">
+              <a :href="waLink(srv.waText)" target="_blank" class="btn btn-primary" x-text="srv.btnText"></a>
+            </template>
+            <template x-if="srv.link">
+              <a :href="waLink(srv.waText)" class="btn btn-secondary" target="_blank">Pesan via WA</a>
+            </template>
+          </div>
+        </div>
+      </div>
+    </template>
+  </section>
+
+  <!-- Section Keunggulan (dari Homepage) -->
+  <section class="advantages" id="features" style="padding-top: 50px;">
+    <div class="section-head">
+      <h2>Apa yang Membuat Kami <span>Berbeda?</span></h2>
+      <p>Mengedepankan dedikasi untuk melampaui ekspektasi Anda.</p>
+    </div>
+    
+    <div class="features-grid">
+      <template x-for="feat in features" :key="feat.title">
+        <template x-if="feat.title !== 'Cocok untuk Personal & Bisnis'">
+          <div class="feature-card">
+            <span class="feature-icon" x-text="feat.icon"></span>
+            <h3 x-text="feat.title"></h3>
+            <p x-text="feat.desc"></p>
+          </div>
+        </template>
+      </template>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <div class="final-cta">
+    <h2>Layanan Spesial Untuk Identitas Berbeda</h2>
+    <p>Ambil langkah pertama menuju digitalisasi penuh pesona.</p>
+    <div class="hero-btns" style="justify-content: center;">
+      <a href="pricing.html" class="btn btn-primary">Cek Harga Kami</a>
+      <a href="contact.html" class="btn btn-secondary">Hubungi Tim</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+    <ul class="footer-nav">
+      <template x-for="link in navLinks">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

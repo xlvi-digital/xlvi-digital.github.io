@@ -1,81 +1,321 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Katalog Undangan | XLVI-Digital</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Layanan | XLVI.ID</title>
+  <meta name="description" content="Katalog layanan profesional XLVI.ID - Undangan Digital, CV Modern, Company Profile, Rental Website, dan Custom Web.">
 
-    <link rel="stylesheet" href="assets/catalog.css" />
-  </head>
-  <body>
-    <section class="jumbotron">
-      <h1>Katalog Undangan Digital</h1>
-      <p>Pilih tema & paket undangan terbaik bersama XLVI-Digital</p>
-    </section>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-    <div class="stepper">
-      <div class="step active">1 Pilih Tema</div>
-      <div class="step">2 Jenis Paket</div>
-      <div class="step">3 Pilih Paket</div>
-      <div class="step">4 WhatsApp</div>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/catalog.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="siteData">
+  <!-- Background Blur Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" :class="{ 'active-link': window.location.pathname.endsWith(link.url) || (window.location.pathname.endsWith('/') && link.url === 'index.html') }" x-text="link.name"></a></li>
+      </template>
+    </ul>
+
+    <a :href="'https://wa.me/' + contactNumber" class="nav-cta" target="_blank">Pesan Sekarang</a>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
     </div>
+  </nav>
 
-    <!-- FILTER -->
+  <div x-data="catalogApp">
+    <!-- Hero Section untuk Catalog -->
+    <header class="hero-catalog">
+      <div class="section-head">
+        <h2>Katalog <span>Layanan</span></h2>
+        <p>Pilih layanan, cari referensi, dan diskusikan proyek digital Anda bersama kami.</p>
+      </div>
+    </header>
+
+    <!-- FILTER & SEARCH SECTION -->
     <section class="filter-section">
-      <button class="filter-btn active" onclick="filterTheme('all',event)">Semua Tema</button>
-      <button class="filter-btn" onclick="filterTheme('botanical',event)">Botanical</button>
-      <button class="filter-btn" onclick="filterTheme('luxury',event)">Luxury</button>
-      <button class="filter-btn" onclick="filterTheme('romantic',event)">Romantic</button>
-    </section>
-
-    <section class="preview-catalog">
-      <div class="preview-card" data-theme="botanical" data-photo="yes" onclick="selectTheme(this,'Botanical Green','Botanical','Dengan Foto')">
-        <div class="img-wrapper">
-          <img src="images/portfolio/1.png" alt="Botanical Green" />
+      <div class="filter-container">
+        <!-- Dropdown Category -->
+        <div class="custom-select-wrapper">
+          <select x-model="selectedCategory" class="catalog-input">
+            <template x-for="cat in categories" :key="cat">
+              <option :value="cat" x-text="cat"></option>
+            </template>
+          </select>
+          <div class="filter-icon">▼</div>
         </div>
 
-        <div class="card-body">
-          <h3>Botanical Green</h3>
-          <span class="tag">Botanical · Foto</span>
-          <p>Nuansa natural dan segar.</p>
-
-          <div class="card-action">
-            <button class="btn-demo" type="button">Demo</button>
-            <button class="btn-select" type="button">Pilih</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="preview-card" data-theme="luxury" data-photo="yes" onclick="selectTheme(this,'Luxury Gold','Luxury','Dengan Foto')">
-        <div class="img-wrapper">
-          <img src="images/portfolio/3.png" alt="Luxury Gold" />
-        </div>
-
-        <div class="card-body">
-          <h3>Luxury Gold</h3>
-          <span class="tag">Luxury · Foto</span>
-          <p>Elegan dan eksklusif.</p>
-
-          <div class="card-action">
-            <button class="btn-demo" type="button">Demo</button>
-            <button class="btn-select" type="button">Pilih</button>
-          </div>
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+          <input type="text" x-model="searchQuery" class="catalog-input" placeholder="Cari nama project, kategori, keyword...">
         </div>
       </div>
     </section>
 
-    <!-- PACKAGE TYPE -->
-    <section class="package-type">
-      <div class="type-card" onclick="selectPackageType('Digital Only',this)">Digital Only</div>
-      <div class="type-card" onclick="selectPackageType('Hybrid',this)">Hybrid (Digital + Fisik)</div>
+    <!-- THEME GRID -->
+    <section class="catalog-grid-section" style="padding: 0 8% 80px;">
+      <div class="portfolio-grid">
+        <template x-for="item in filteredItems" :key="item.id">
+          <div class="portfolio-card">
+            <div class="portfolio-img">
+              <img :src="item.image" :alt="item.title">
+            </div>
+            <div class="portfolio-info">
+              <span class="badge-category" x-text="item.category"></span>
+              <h4 x-text="item.title"></h4>
+              <p class="card-desc" x-text="item.shortDescription"></p>
+
+              <template x-if="item.priceStart">
+                <div class="price-start">
+                  <span style="display: block;">Harga Mulai</span>
+                  <span x-text="item.priceStart" style="font-size: 18px; font-weight: 700; color: #fff;"></span>
+                </div>
+              </template>
+              
+              <div class="portfolio-actions">
+                <button @click="openDetail(item)" class="btn btn-secondary">Lihat Detail</button>
+                <button @click="openOrder(item)" class="btn btn-primary">Pesan Sekarang</button>
+              </div>
+            </div>
+          </div>
+        </template>
+        
+        <template x-if="filteredItems.length === 0">
+          <div class="empty-state">
+            Belum ada hasil yang cocok dengan pencarian Anda.
+          </div>
+        </template>
+      </div>
     </section>
 
-    <!-- PACKAGE LIST -->
-    <section class="catalog" id="packageList"></section>
 
-    <div id="orderBar" class="order-bar hidden"></div>
+    <!-- MODAL DETAIL PROJECT -->
+    <template x-if="isDetailModalOpen && selectedItem">
+      <div>
+        <div class="modal-overlay" @click="closeDetail()"></div>
+        <div class="modal-content">
+          <button class="modal-close" @click="closeDetail()">&times;</button>
+          <div class="modal-body">
+            <img :src="selectedItem.image" :alt="selectedItem.title" class="modal-img">
+            <span class="modal-category" x-text="selectedItem.category"></span>
+            <h3 class="modal-title" x-text="selectedItem.title"></h3>
+            
+            <p class="modal-desc" x-text="selectedItem.shortDescription"></p>
 
-    <script src="assets/catalog.js"></script>
-  </body>
+            <template x-if="selectedItem.features && selectedItem.features.length">
+              <div>
+                <h4 style="margin-bottom: 10px; font-size: 16px;">Fitur Unggulan:</h4>
+                <ul class="feature-list">
+                  <template x-for="feat in selectedItem.features" :key="feat">
+                    <li x-text="feat"></li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+            
+            <template x-if="selectedItem.priceStart">
+              <div style="margin-bottom: 20px;">
+                <span style="font-size: 14px; color: var(--text-muted);">Estimasi Harga:</span>
+                <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);" x-text="selectedItem.priceStart"></div>
+              </div>
+            </template>
+
+            <div class="modal-actions">
+              <template x-if="selectedItem.demoLink && selectedItem.demoLink !== '#'">
+                <a :href="selectedItem.demoLink" target="_blank" class="btn btn-secondary" style="flex:1; text-align: center;">Lihat Demo Live</a>
+              </template>
+              <button @click="openOrder(selectedItem)" class="btn btn-primary" style="flex:1;">Pesan Layanan Ini</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- MODAL ORDER FORM DINAMIS -->
+    <template x-if="isOrderModalOpen && checkoutItem">
+      <div>
+        <div class="modal-overlay" @click="closeOrder()"></div>
+        <div class="modal-content form-modal">
+          <button class="modal-close" @click="closeOrder()">&times;</button>
+          <div class="modal-body">
+            <div class="form-header">
+              <h3>Form Pemesanan</h3>
+              <p>Lengkapi kebutuhan <span style="font-weight: 600; color: var(--primary-color);" x-text="checkoutItem.title"></span></p>
+            </div>
+            
+            <form @submit.prevent="submitOrder">
+              
+              <!-- KOMPONEN UMUM -->
+              <div class="form-group">
+                <label>Nama Anda (Pemesan):</label>
+                <input type="text" x-model="formData.namaPemesan" class="form-control" required placeholder="Cth: Budi Santoso">
+              </div>
+
+              <!-- JIKA WEBSITE UNDANGAN DIGITAL -->
+              <template x-if="checkoutItem.orderType === 'undangan'">
+                <div>
+                  <div class="form-group">
+                    <label>Nama Mempelai / Acara:</label>
+                    <input type="text" x-model="formData.namaAcara" class="form-control" placeholder="Cth: Romeo & Juliet" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Tanggal Pelaksanaan:</label>
+                    <input type="date" x-model="formData.tanggalAcara" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Pilihan Paket (Basic/Premium/Custom):</label>
+                    <select x-model="formData.paketPilihan" class="form-control">
+                      <option value="">Pilih Paket...</option>
+                      <option value="Basic">Basic</option>
+                      <option value="Premium">Premium</option>
+                      <option value="Custom">Custom</option>
+                    </select>
+                  </div>
+                </div>
+              </template>
+
+              <!-- JIKA COMPANY PROFILE -->
+              <template x-if="checkoutItem.orderType === 'company_profile'">
+                <div>
+                  <div class="form-group">
+                    <label>Nama Bisnis / Perusahaan:</label>
+                    <input type="text" x-model="formData.namaBisnis" class="form-control" placeholder="Cth: PT Jaya Abadi" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Bidang Usaha:</label>
+                    <input type="text" x-model="formData.bidangUsaha" class="form-control" placeholder="Cth: Kontraktor Alat Berat" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Sudah punya Domain/Hosting?</label>
+                    <select x-model="formData.statusDomain" class="form-control">
+                      <option value="">Pilih Status...</option>
+                      <option value="Belum, butuh dicarikan">Belum, butuh dicarikan</option>
+                      <option value="Sudah punya">Sudah punya</option>
+                    </select>
+                  </div>
+                </div>
+              </template>
+
+              <!-- JIKA UMKM / JUALAN -->
+              <template x-if="checkoutItem.orderType === 'umkm'">
+                <div>
+                  <div class="form-group">
+                    <label>Nama Usaha Makanan/Jasa:</label>
+                    <input type="text" x-model="formData.namaUsaha" class="form-control" placeholder="Cth: Nasi Goreng Gila" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Produk / Jasa Utama:</label>
+                    <input type="text" x-model="formData.produkUtama" class="form-control" placeholder="Cth: Makanan pedas siap saji" required>
+                  </div>
+                </div>
+              </template>
+
+              <!-- JIKA RENTAL -->
+              <template x-if="checkoutItem.orderType === 'rental'">
+                <div>
+                  <div class="form-group">
+                    <label>Nama Usaha Rental:</label>
+                    <input type="text" x-model="formData.namaRental" class="form-control" placeholder="Cth: Sewa Kamera Bandung" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Jenis Barang Disewakan (Kamera/Mobil dll):</label>
+                    <input type="text" x-model="formData.jenisRental" class="form-control" placeholder="Cth: Kamera & Lensa" required>
+                  </div>
+                </div>
+              </template>
+
+              <!-- JIKA ECOMMERCE -->
+              <template x-if="checkoutItem.orderType === 'ecommerce'">
+                <div>
+                  <div class="form-group">
+                    <label>Nama Brand / Toko:</label>
+                    <input type="text" x-model="formData.namaToko" class="form-control" placeholder="Cth: Hijab Fashion" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Estimasi Jumlah Produk Awal:</label>
+                    <input type="text" x-model="formData.jumlahProduk" class="form-control" placeholder="Cth: 10 - 20 Item" required>
+                  </div>
+                </div>
+              </template>
+
+              <!-- JIKA CV / RESUME -->
+              <template x-if="checkoutItem.orderType === 'cv'">
+                <div>
+                  <div class="form-group">
+                    <label>Nama Lengkap (Untuk CV):</label>
+                    <input type="text" x-model="formData.namaLengkapCV" class="form-control" placeholder="Cth: Budi Santoso, S.Kom" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Posisi Incaran:</label>
+                    <input type="text" x-model="formData.posisiDilamar" class="form-control" placeholder="Cth: Digital Marketer" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Sudah ada draft data pengalaman?</label>
+                    <select x-model="formData.statusDataCv" class="form-control">
+                      <option value="">Pilih...</option>
+                      <option value="Sudah Ada (PDF/Word)">Sudah Ada (PDF/Word)</option>
+                      <option value="Belum Ada">Belum Ada</option>
+                    </select>
+                  </div>
+                </div>
+              </template>
+
+              <!-- JIKA CUSTOM -->
+              <template x-if="checkoutItem.orderType === 'custom'">
+                <div>
+                  <div class="form-group">
+                    <label>Deskripsi Singkat Keinginan Web:</label>
+                    <input type="text" x-model="formData.deskripsiCustom" class="form-control" placeholder="Cth: Web portal berita spesifik" required>
+                  </div>
+                </div>
+              </template>
+
+              <!-- CATATAN TAMBAHAN (GLOBAL) -->
+              <div class="form-group">
+                <label>Catatan / Pertanyaan Tambahan (Opsional):</label>
+                <textarea x-model="formData.catatanTambahan" class="form-control" placeholder="Tuliskan jika ada referensi web, ide warna, deadline dll..."></textarea>
+              </div>
+
+              <!-- BUTTON SUBMIT -->
+              <button type="submit" class="btn btn-primary form-submit-btn">Lanjut ke WhatsApp</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div> <!-- END x-data catalogApp -->
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+    <ul class="footer-nav">
+      <template x-for="link in navLinks">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/catalog-data.js"></script>
+  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
 </html>

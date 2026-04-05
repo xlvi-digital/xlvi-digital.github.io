@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hubungi Kami | XLVI.ID</title>
+  <meta name="description" content="Hubungi XLVI.ID untuk pembuatan Undangan Digital, CV Modern ATS, Company Profile, dan Custom Website.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/services.css"> <!-- for hero-page -->
+  <link rel="stylesheet" href="assets/css/pricing.css"> <!-- for faq-section -->
+  <link rel="stylesheet" href="assets/css/contact.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="siteData">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+    
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" :class="{ 'active-link': window.location.pathname.endsWith(link.url) || (window.location.pathname.endsWith('/') && link.url === 'index.html') }" x-text="link.name"></a></li>
+      </template>
+    </ul>
+
+    <a :href="'https://wa.me/' + contactNumber" class="nav-cta" target="_blank">Pesan Sekarang</a>
+    
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section untuk Contact -->
+  <header class="hero-page">
+    <h1>Hubungi <span>XLVI.ID</span></h1>
+    <p>Ajak kami berdiskusi tentang bagaimana kami bisa merealisasikan ide digital terbaik untuk Anda.</p>
+  </header>
+
+  <!-- Contact Form & Info -->
+  <section class="contact" style="padding-top: 0; padding-bottom: 50px;">
+    <div class="contact-container">
+      <form class="contact-form" id="waForm">
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Contoh: Andi Pratama" required>
+        </div>
+        <div class="form-group">
+          <label for="kontak">Email / WhatsApp</label>
+          <input type="text" id="kontak" placeholder="Contoh: 0812xxxx / andi@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="layanan">Jenis Layanan</label>
+          <select id="layanan" class="select-form" required>
+            <option value="" disabled selected>Pilih Layanan Konsultasi</option>
+            <option value="Undangan Digital">Undangan Digital</option>
+            <option value="CV Modern">CV Modern</option>
+            <option value="Company Profile">Company Profile Website</option>
+            <option value="Custom Website">Custom Website / Landing Page</option>
+            <option value="Lainnya">Lainnya / Diskusi Biasa</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pesan">Pesan Anda</label>
+          <textarea id="pesan" rows="4" placeholder="Sampaikan apa yang ingin Anda wujudkan..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim via WhatsApp</button>
+      </form>
+      
+      <div class="contact-info">
+        <h3>Informasi Kontak</h3>
+        <p>Konsultasikan kebutuhan Anda. Kami siap melayani di waktu operasional dengan respon tercepat.</p>
+        
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+              <strong>Lokasi</strong>
+              <p>Jakarta Barat, Indonesia (Remote Everywhere)</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🕒</span>
+            <div>
+              <strong>Jam Operasional</strong>
+              <p>Senin - Minggu: 09:00 - 22:00 WIB</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📱</span>
+            <div>
+              <strong>Hubungi Langsung</strong>
+              <p>+62 821 1950 2976</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links" style="margin-top: 25px;">
+          <a href="https://instagram.com" class="social-btn" target="_blank">IG</a>
+          <a :href="'https://wa.me/' + contactNumber" class="social-btn" target="_blank">WA</a>
+          <a href="https://tiktok.com" class="social-btn" target="_blank">TT</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (using pricing styles) -->
+  <section class="faq-section" style="padding-top: 40px; padding-bottom: 60px;">
+    <div class="section-head">
+      <h2>Paling Sering <span>Ditanyakan</span></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-card">
+        <h4>Berapa nomor WA yang dihubungi?</h4>
+        <p>Anda akan langsung diarahkan ke tim admin kami melalui link WA otomatis yang sudah menyesuaikan dengan form Anda.</p>
+      </div>
+      <div class="faq-card">
+        <h4>Apakah data saya aman?</h4>
+        <p>Tentu, form ini mengarahkan Anda langsung ke personal chat WhatsApp. Kami tidak menyimpan data sensitif di server external manapun.</p>
+      </div>
+      <div class="faq-card">
+        <h4>Apakah ada biaya admin?</h4>
+        <p>Tidak ada, Anda hanya akan ditagih harga normal paket setelah deal konsultasi melalui WhatsApp. Kami transparan selalu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+    <ul class="footer-nav">
+      <template x-for="link in navLinks">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/contact.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

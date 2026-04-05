@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harga | XLVI.ID</title>
+  <meta name="description" content="Paket Harga Jasa Website & Desain Digital XLVI.ID">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/services.css"> <!-- Used for inner hero -->
+  <link rel="stylesheet" href="assets/css/pricing.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="siteData">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+    
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" :class="{ 'active-link': window.location.pathname.endsWith(link.url) || (window.location.pathname.endsWith('/') && link.url === 'index.html') }" x-text="link.name"></a></li>
+      </template>
+    </ul>
+
+    <a :href="'https://wa.me/' + contactNumber" class="nav-cta" target="_blank">Pesan Sekarang</a>
+    
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section untuk Pricing -->
+  <header class="hero-page">
+    <h1>Pilih Paket <span>Sesuai Kebutuhanmu</span></h1>
+    <p>Investasi pintar untuk platform digital yang mendatangkan keuntungan. Tak ada biaya tersembunyi.</p>
+  </header>
+
+  <!-- Pricing Cards -->
+  <section class="pricing" style="padding-top: 20px;">
+    <div class="pricing-grid">
+      <template x-for="pkg in packages" :key="pkg.name">
+        <div class="pricing-card" :class="{'popular': pkg.popular}">
+          <template x-if="pkg.popular">
+            <div class="badge">Paling Populer</div>
+          </template>
+          <h3 x-text="pkg.name"></h3>
+          <div class="price"><span x-text="pkg.price" style="font-size: 48px; font-weight: 800; color: #fff;"></span><span x-text="pkg.period"></span></div>
+          <p class="price-desc" x-text="pkg.desc"></p>
+          <ul class="pricing-list">
+            <template x-for="inc in pkg.includes">
+              <li x-text="inc"></li>
+            </template>
+          </ul>
+          <a :href="waLink(pkg.waText)" target="_blank" class="btn" :class="pkg.popular ? 'btn-primary' : 'btn-secondary'" style="display: block; width: 100%;">Pilih Paket Ini</a>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" style="padding-top: 40px; padding-bottom: 60px;">
+    <div class="section-head">
+      <h2>Pertanyaan <span>Terbanyak (FAQ)</span></h2>
+      <p>Hal yang sering ditanyakan sebelum memulai.</p>
+    </div>
+    <div class="faq-grid">
+      <template x-for="faq in faqs" :key="faq.q">
+        <div class="faq-card">
+          <h4 x-text="faq.q"></h4>
+          <p x-text="faq.a"></p>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <div class="final-cta" style="margin-top: 50px;">
+    <h2>Butuh Penyesuaian Anggaran?</h2>
+    <p>Kami bersedia mendiskusikan kebutuhan Anda.</p>
+    <div class="hero-btns" style="justify-content: center;">
+      <a :href="waLink('Halo XLVI.ID, saya ingin konsultasi budget.')" target="_blank" class="btn btn-primary">Konsultasi via WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+    <ul class="footer-nav">
+      <template x-for="link in navLinks">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

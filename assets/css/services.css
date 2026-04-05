@@ -1,0 +1,31 @@
+/* Hero for Inner Pages */
+.hero-page {
+  padding-top: 160px;
+  padding-bottom: 40px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-page h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: var(--text-light);
+}
+
+.hero-page h1 span {
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-page p {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 991px) {
+  .hero-page h1 { font-size: 36px; }
+  .hero-page { padding: 130px 5% 30px; }
+}

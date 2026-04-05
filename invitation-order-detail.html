@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Data Undangan | XLVI.ID</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/catalog.css">
+  <link rel="stylesheet" href="assets/css/invitation.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="siteData">
+  <!-- Background Blur Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+    <a href="#" class="nav-cta" target="_blank">Pesan Sekarang</a>
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
+    </div>
+  </nav>
+
+  <main x-data="invitationOrder" class="order-container">
+    
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+      <div class="progress-step completed">
+        <div class="step-circle">1</div>
+        <div class="step-label">Pilih Paket</div>
+      </div>
+      <div class="progress-step completed">
+        <div class="step-circle">2</div>
+        <div class="step-label">Data Awal</div>
+      </div>
+      <div class="progress-step active">
+        <div class="step-circle">3</div>
+        <div class="step-label">Data Detail</div>
+      </div>
+      <div class="progress-step">
+        <div class="step-circle">4</div>
+        <div class="step-label">Konfirmasi</div>
+      </div>
+    </div>
+
+    <section x-transition>
+      <div class="section-head" style="margin-bottom: 40px;">
+        <h2>Langkah 3: <span>Data Detail</span></h2>
+        <p>Lengkapi informasi detail yang akan ditampilkan di undangan digital Anda.</p>
+      </div>
+
+      <!-- Ringkasan Data Awal -->
+      <div class="summary-box">
+        <div class="summary-item">
+          <span class="summary-label">Paket Dipilih</span>
+          <span class="summary-value" x-text="orderData.packageType"></span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Pemesan</span>
+          <span class="summary-value" x-text="orderData.basicInfo.namaPemesan"></span>
+        </div>
+        <div class="summary-item" x-show="orderData.basicInfo.namaAcara">
+          <span class="summary-label">Nama Acara</span>
+          <span class="summary-value" x-text="orderData.basicInfo.namaAcara"></span>
+        </div>
+        <div class="summary-item" x-show="orderData.basicInfo.tanggalAcara">
+          <span class="summary-label">Tanggal Acara</span>
+          <span class="summary-value" x-text="orderData.basicInfo.tanggalAcara"></span>
+        </div>
+      </div>
+
+      <form @submit.prevent="submitStep3" class="order-box">
+        
+        <!-- SECTION A: DATA UTAMA ACARA -->
+        <div x-show="orderData.basicInfo.jenisAcara === 'Pernikahan'">
+          <div class="section-title">
+            <span class="section-indicator">A</span>
+            Data Mempelai Pria & Wanita
+          </div>
+          
+          <div style="margin-bottom: 25px;">
+            <p style="font-size: 14px; color: var(--primary-color); font-weight: 500; margin-bottom: 15px;">Mempelai Pria</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiPria.namaLengkap" class="form-control" placeholder="Cth: Romeo Alexander">
+              </div>
+              <div class="form-group">
+                <label>Nama Panggilan:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiPria.namaPanggilan" class="form-control" placeholder="Cth: Romeo">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nama Ayah:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiPria.ayah" class="form-control" placeholder="Cth: Ayah Romeo">
+              </div>
+              <div class="form-group">
+                <label>Nama Ibu:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiPria.ibu" class="form-control" placeholder="Cth: Ibu Romeo">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 25px;">
+            <p style="font-size: 14px; color: var(--primary-color); font-weight: 500; margin-bottom: 15px;">Mempelai Wanita</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiWanita.namaLengkap" class="form-control" placeholder="Cth: Juliet Capulet">
+              </div>
+              <div class="form-group">
+                <label>Nama Panggilan:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiWanita.namaPanggilan" class="form-control" placeholder="Cth: Juliet">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nama Ayah:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiWanita.ayah" class="form-control" placeholder="Cth: Ayah Juliet">
+              </div>
+              <div class="form-group">
+                <label>Nama Ibu:</label>
+                <input type="text" x-model="orderData.detailInfo.mempelaiWanita.ibu" class="form-control" placeholder="Cth: Ibu Juliet">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div x-show="orderData.basicInfo.jenisAcara !== 'Pernikahan'">
+          <div class="section-title">
+            <span class="section-indicator">A</span>
+            Data Utama Acara
+          </div>
+          <div class="form-group">
+            <label>Nama Utama Acara:</label>
+            <input type="text" x-model="orderData.detailInfo.acaraUtama.nama" class="form-control" placeholder="Cth: Syukuran Aqiqah Razan">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nama Tokoh Utama (JIka ada):</label>
+              <input type="text" x-model="orderData.detailInfo.acaraUtama.tokoh" class="form-control" placeholder="Cth: Razan Ahmad">
+            </div>
+            <div class="form-group">
+              <label>Penyelenggara / Ortu:</label>
+              <input type="text" x-model="orderData.detailInfo.acaraUtama.penyelenggara" class="form-control" placeholder="Cth: Kel. Bp Budi & Ibu Siska">
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION B: DETAIL JADWAL ACARA -->
+        <div class="section-title" style="margin-top: 40px;">
+          <span class="section-indicator">B</span>
+          Detail Jadwal Acara (Akad / Inti)
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hari:</label>
+            <input type="text" x-model="orderData.detailInfo.jadwalInti.hari" class="form-control" placeholder="Cth: Minggu">
+          </div>
+          <div class="form-group">
+            <label>Tanggal:</label>
+            <input type="date" x-model="orderData.detailInfo.jadwalInti.tanggal" class="form-control">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Waktu / Jam:</label>
+            <input type="text" x-model="orderData.detailInfo.jadwalInti.jam" class="form-control" placeholder="Cth: 08:00 - Selesai">
+          </div>
+          <div class="form-group">
+            <label>Lokasi:</label>
+            <input type="text" x-model="orderData.detailInfo.jadwalInti.lokasi" class="form-control" placeholder="Cth: Masjid Agung Bandung">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Google Maps:</label>
+          <input type="text" x-model="orderData.detailInfo.jadwalInti.maps" class="form-control" placeholder="Cth: https://maps.app.goo.gl/...">
+        </div>
+
+        <!-- Opsi Acara Tambahan (Resepsi/Lainnya) -->
+        <div style="margin-top: 20px;">
+          <label class="checkbox-item" style="display: flex; background: rgba(123, 44, 191, 0.1); border-color: rgba(123, 44, 191, 0.3);">
+            <input type="checkbox" x-model="orderData.detailInfo.jadwalTambahan.active">
+            <span>Tambah Sesi Acara (Resepsi / Hiburan / Lainnya)</span>
+          </label>
+        </div>
+
+        <div x-show="orderData.detailInfo.jadwalTambahan.active" style="margin-top: 20px;" x-transition>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Hari:</label>
+              <input type="text" x-model="orderData.detailInfo.jadwalTambahan.hari" class="form-control" placeholder="Cth: Senin">
+            </div>
+            <div class="form-group">
+              <label>Tanggal:</label>
+              <input type="date" x-model="orderData.detailInfo.jadwalTambahan.tanggal" class="form-control">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Waktu / Jam:</label>
+              <input type="text" x-model="orderData.detailInfo.jadwalTambahan.jam" class="form-control" placeholder="Cth: 19:00 - Selesai">
+            </div>
+            <div class="form-group">
+              <label>Lokasi:</label>
+              <input type="text" x-model="orderData.detailInfo.jadwalTambahan.lokasi" class="form-control" placeholder="Cth: Grand Ballroom Hotel X">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Link Google Maps Resepsi:</label>
+            <input type="text" x-model="orderData.detailInfo.jadwalTambahan.maps" class="form-control" placeholder="Link Map Resepsi">
+          </div>
+        </div>
+
+        <!-- SECTION C: NARASI / KONTEN -->
+        <div class="section-title" style="margin-top: 40px;">
+          <span class="section-indicator">C</span>
+          Cerita & Konten Undangan
+        </div>
+        <div class="form-group">
+          <label>Cerita Singkat (Optional):</label>
+          <textarea x-model="orderData.detailInfo.konten.cerita" class="form-control" placeholder="Tuliskan kisah singkat pasangan / acara..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Kata Pembuka / Quote:</label>
+          <textarea x-model="orderData.detailInfo.konten.quote" class="form-control" placeholder="Cth: QS Ar-Rum 21 atau kutipan romantis..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Nama Keluarga yang Mengundang:</label>
+            <textarea x-model="orderData.detailInfo.konten.keluarga" class="form-control" placeholder="Sebutkan nama-nama keluarga besar (Turut mengundang)"></textarea>
+          </div>
+        </div>
+
+        <!-- SECTION D: FITUR TAMBAHAN -->
+        <div class="section-title" style="margin-top: 40px;">
+          <span class="section-indicator">D</span>
+          Fitur Tambahan Undangan
+        </div>
+        <div class="features-grid">
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('RSVP Konfirmasi')"> <span>RSVP</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Countdown Acara')"> <span>Countdown</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Galeri Foto')"> <span>Galeri Foto</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Love Story')"> <span>Love Story</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Amplop Digital')"> <span>Amplop Digital</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Background Music')"> <span>Musik</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Live Streaming')"> <span>Live Stream</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Buku Tamu UC')"> <span>Buku Tamu</span></label>
+          <label class="checkbox-item"><input type="checkbox" @change="toggleFeature('Filter Nama')"> <span>Saring Nama</span></label>
+        </div>
+
+        <!-- Dynamic Feature Input -->
+        <div x-show="hasFeature('Amplop Digital')" style="margin-top: 15px;" x-transition>
+          <div class="form-group">
+            <label>Nomor Rekening / E-Wallet (Untuk Gift):</label>
+            <input type="text" class="form-control" placeholder="Cth: BCA 12345678 a/n Romeo">
+          </div>
+        </div>
+        <div x-show="hasFeature('Background Music')" style="margin-top: 15px;" x-transition>
+          <div class="form-group">
+            <label>Judul Lagu / Link Referensi Musik:</label>
+            <input type="text" class="form-control" placeholder="Cth: Christina Perri - A Thousand Years">
+          </div>
+        </div>
+
+        <!-- SECTION E: REFERENSI DESAIN -->
+        <div class="section-title" style="margin-top: 40px;">
+          <span class="section-indicator">E</span>
+          Referensi Desain
+        </div>
+        <div class="form-group">
+          <label>Link Referensi Desain:</label>
+          <input type="text" x-model="orderData.designReferences.links" class="form-control" placeholder="Cth: Dari catalog XLVI.ID atau Pinterest">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Warna Dominan:</label>
+            <input type="text" x-model="orderData.designReferences.warna" class="form-control" placeholder="Cth: Gold, Navy, Terracotta">
+          </div>
+          <div class="form-group">
+            <label>Gaya Desain:</label>
+            <select x-model="orderData.designReferences.gaya" class="form-control">
+              <option value="">Pilih Gaya...</option>
+              <option value="Elegan">Elegan</option>
+              <option value="Minimalis">Minimalis</option>
+              <option value="Floral">Floral</option>
+              <option value="Islami">Islami</option>
+              <option value="Modern">Modern</option>
+              <option value="Custom">Custom</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SECTION F: KONFIRMASI FINAL -->
+        <div class="section-title" style="margin-top: 40px;">
+          <span class="section-indicator">F</span>
+          Konfirmasi Final
+        </div>
+        <div style="margin-bottom: 30px;">
+          <label class="checkbox-item" style="margin-bottom: 10px;">
+            <input type="checkbox" x-model="orderData.finalConfirmation.dataBenar" required>
+            <span>Data yang saya isi sudah benar dan dapat diproses</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" x-model="orderData.finalConfirmation.pahamRevisi" required>
+            <span>Saya memahami bahwa revisi mengikuti paket yang dipilih</span>
+          </label>
+        </div>
+
+        <div class="btn-row">
+          <a href="invitation-order.html" class="btn btn-secondary" style="text-align: center; border: 1px solid var(--glass-border); padding: 12px;">Kembali</a>
+          <button type="submit" class="btn btn-primary">Lanjut ke Konfirmasi Pesanan</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 80px;">
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/invitation-order.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

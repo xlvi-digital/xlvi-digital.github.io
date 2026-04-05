@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konfirmasi Pesanan | XLVI.ID</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/catalog.css">
+  <link rel="stylesheet" href="assets/css/invitation.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="siteData">
+  <!-- Background Blur Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+    <a href="#" class="nav-cta" target="_blank">Pesan Sekarang</a>
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
+    </div>
+  </nav>
+
+  <main x-data="invitationOrder" class="order-container">
+    
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+      <div class="progress-step completed">
+        <div class="step-circle">1</div>
+        <div class="step-label">Pilih Paket</div>
+      </div>
+      <div class="progress-step completed">
+        <div class="step-circle">2</div>
+        <div class="step-label">Data Awal</div>
+      </div>
+      <div class="progress-step completed">
+        <div class="step-circle">3</div>
+        <div class="step-label">Data Detail</div>
+      </div>
+      <div class="progress-step active">
+        <div class="step-circle">4</div>
+        <div class="step-label">Konfirmasi</div>
+      </div>
+    </div>
+
+    <section x-transition>
+      <div class="section-head" style="margin-bottom: 40px;">
+        <h2>Langkah 4: <span>Konfirmasi Pesanan</span></h2>
+        <p>Silakan tinjau kembali data pesanan Anda sebelum dikirim ke tim admin XLVI.ID.</p>
+      </div>
+
+      <div class="order-box">
+        <div class="section-title">
+          Ringkasan Pesanan Anda
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-item">
+            <span class="summary-label">Paket</span>
+            <span class="summary-value" x-text="orderData.packageType"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Jenis Acara</span>
+            <span class="summary-value" x-text="orderData.basicInfo.jenisAcara"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Nama Pemesan</span>
+            <span class="summary-value" x-text="orderData.basicInfo.namaPemesan"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Kontak WA</span>
+            <span class="summary-value" x-text="orderData.basicInfo.noWhatsapp"></span>
+          </div>
+          <div class="summary-item" x-show="orderData.basicInfo.namaAcara">
+            <span class="summary-label">Nama Mempelai / Acara</span>
+            <span class="summary-value" x-text="orderData.basicInfo.namaAcara"></span>
+          </div>
+          <div class="summary-item" x-show="orderData.basicInfo.tanggalAcara">
+            <span class="summary-label">Tanggal Acara</span>
+            <span class="summary-value" x-text="orderData.basicInfo.tanggalAcara"></span>
+          </div>
+          <div class="summary-item" x-show="orderData.basicInfo.lokasiAcara">
+            <span class="summary-label">Lokasi Acara</span>
+            <span class="summary-value" x-text="orderData.basicInfo.lokasiAcara"></span>
+          </div>
+        </div>
+
+        <div class="section-title" style="font-size: 16px; margin-top: 30px;">
+          Data Detail & Fitur
+        </div>
+        <div class="summary-box">
+          <div class="summary-item" x-show="orderData.basicInfo.jenisAcara === 'Pernikahan'">
+            <span class="summary-label">Mempelai Pria</span>
+            <span class="summary-value" x-text="orderData.detailInfo.mempelaiPria.namaLengkap"></span>
+          </div>
+          <div class="summary-item" x-show="orderData.basicInfo.jenisAcara === 'Pernikahan'">
+            <span class="summary-label">Mempelai Wanita</span>
+            <span class="summary-value" x-text="orderData.detailInfo.mempelaiWanita.namaLengkap"></span>
+          </div>
+          <div class="summary-item" x-show="orderData.basicInfo.jenisAcara !== 'Pernikahan'">
+            <span class="summary-label">Nama Acara Utama</span>
+            <span class="summary-value" x-text="orderData.detailInfo.acaraUtama.nama"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Fitur Terpilih</span>
+            <span class="summary-value">
+              <template x-for="(f, i) in orderData.features" :key="i">
+                <span x-text="f + (i < orderData.features.length - 1 ? ', ' : '')"></span>
+              </template>
+              <span x-show="orderData.features.length === 0">-</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="section-title" style="font-size: 16px; margin-top: 30px;">
+          Referensi & Deadline
+        </div>
+        <div class="summary-box">
+          <div class="summary-item" x-show="orderData.designReferences.gaya">
+            <span class="summary-label">Gaya Desain</span>
+            <span class="summary-value" x-text="orderData.designReferences.gaya"></span>
+          </div>
+          <div class="summary-item" x-show="orderData.basicInfo.deadline">
+            <span class="summary-label">Batas Pengerjaan</span>
+            <span class="summary-value" x-text="orderData.basicInfo.deadline"></span>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 25px; background: rgba(123, 44, 191, 0.1); border-radius: 15px; border: 1px dashed var(--primary-color); text-align: center;">
+          <p style="font-size: 14px; margin-bottom: 20px; color: var(--text-light);">
+            Informasi di atas akan dikemas otomatis menjadi pesan WhatsApp yang rapi dan profesional.
+          </p>
+          <div class="btn-row" style="flex-direction: column; gap: 15px;">
+            <button @click="sendToWhatsApp()" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 16px;">
+               Kirim Pesanan ke WhatsApp Sekarang
+            </button>
+            <a href="invitation-order-detail.html" class="btn btn-secondary" style="width: 100%; border: 1px solid var(--glass-border); padding: 12px; font-size: 14px; text-align: center;">
+              Edit Data Kembali
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 80px;">
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/invitation-order.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

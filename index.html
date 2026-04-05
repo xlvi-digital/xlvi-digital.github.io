@@ -1,256 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XLVI.ID</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,900;1,100;1,400;1,500;1,900&display=swap" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XLVI.ID | Solusi Digital Elegan untuk Kebutuhan Personal & Bisnis</title>
+  
+  <meta name="description" content="XLVI.ID menyediakan jasa pembuatan undangan digital, CV modern, company profile, dan landing page premium dengan desain elegan dan profesional.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="siteData">
+  <!-- Background Blur Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/reset.css" />
-    <link rel="stylesheet" href="assets/style.css" />
-    <link rel="stylesheet" href="assets/responsive.css" />
-    <link href="assets/box-icons/css/boxicons.css" rel="stylesheet" />
-  </head>
-  <body>
-    <header class="header">
-      <a href="#" class="logo"><img src="images/navbar-logo.png" alt="" /></a>
-      <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#features">Features</a>
-        <a href="#servies">Servies</a>
-      </nav>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">XLVI<span>.ID</span></a>
+    
+    <ul class="nav-links">
+      <template x-for="link in navLinks" :key="link.name">
+        <li><a :href="link.url" :class="{ 'active-link': window.location.pathname.endsWith(link.url) || (window.location.pathname.endsWith('/') && link.url === 'index.html') }" x-text="link.name"></a></li>
+      </template>
+    </ul>
 
-      <div class="bx bx-moon" id="darkMode-icon"></div>
-      <div class="bx bx-menu" id="menu-icon"></div>
-    </header>
-
-    <section id="home" class="home">
-      <div class="home-content">
-        <!-- <h3>welcome to, XLVI.ID</h3> -->
-        <h1>Solusi Digital untuk Kebutuhanmu.</h1>
-        <p>Website Undangan, Profil Perusahaan, dan CV Profesional yang Siap Pakai & Memikat.</p>
-
-        <a href="#" class="btn">Lihat Demo Sekarang</a>
-      </div>
-
-      <!-- <h5>Wujudkan websitemu dalam hitungan hari.</h5> -->
+    <a :href="'https://wa.me/' + contactNumber" class="nav-cta" target="_blank">Pesan Sekarang</a>
+    
+    <div class="menu-toggle" id="menu-toggle">
+      <span>&#9776;</span>
     </div>
-    <div class="home-image">
-      <img src="images/home.png" alt="home-image" />
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <h1>Solusi Digital <span>Elegan</span> untuk Kebutuhan Personal & Bisnismu</h1>
+      <p>XLVI.ID menyediakan undangan digital, CV ATS friendly, company profile website, dan website custom dengan desain premium dan proses cepat.</p>
+      
+      <div class="hero-btns">
+        <a href="catalog.html" class="btn btn-primary">Lihat Demo</a>
+        <a href="contact.html" class="btn btn-secondary">Konsultasi Gratis</a>
+      </div>
     </div>
-    <div class="tagline">
-    </section>
+    
+    <div class="hero-visual">
+      <img src="images/home.png" alt="Mockup Devices XLVI.ID" class="floating-mockup">
+    </div>
+  </header>
 
-    <section id="list" class="list">
-      <div class="heading">
-        <h2>Pilihan Desain Website <span>Terbaik</span></h2>
-        <p>Tersedia berbagai template modern untuk undangan, profil bisnis, dan CV—tinggal pilih, edit, dan pakai!</p>
-      </div>
-      <div class="card-container">
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/1.png" class="" alt="Card image" />
+  <!-- Section Keunggulan -->
+  <section class="advantages" id="features">
+    <div class="section-head">
+      <h2>Kenapa Memilih <span>XLVI.ID</span></h2>
+      <p>Kami mengutamakan kualitas visual dan performa untuk setiap proyek digital yang kami kerjakan.</p>
+    </div>
+    
+    <div class="features-grid">
+      <template x-for="feat in features" :key="feat.title">
+        <div class="feature-card">
+          <span class="feature-icon" x-text="feat.icon"></span>
+          <h3 x-text="feat.title"></h3>
+          <p x-text="feat.desc"></p>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio" id="portfolio">
+    <div class="section-head">
+      <h2>Pilihan Desain Website <span>Terbaik</span></h2>
+    </div>
+    
+    <div class="portfolio-tabs">
+      <template x-for="cat in categories" :key="cat">
+        <button class="tab-btn" 
+                :class="{ 'active': activeFilter === cat }" 
+                @click="activeFilter = cat" 
+                x-text="cat === 'all' ? 'Semua' : cat.charAt(0).toUpperCase() + cat.slice(1)">
+        </button>
+      </template>
+    </div>
+    
+    <div class="portfolio-grid">
+      <template x-for="tpl in filteredTemplates.slice(0, 3)" :key="tpl.id">
+        <div class="portfolio-card" :data-category="tpl.category">
+          <div class="portfolio-img">
+            <img :src="tpl.image" :alt="tpl.name">
           </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Tema Undangan 1</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
+          <div class="portfolio-info">
+            <span class="category" x-text="tpl.category"></span>
+            <h4 x-text="tpl.name"></h4>
+            <div class="portfolio-actions">
+              <a :href="tpl.previewUrl" class="btn btn-secondary btn-sm" target="_blank">Live Preview</a>
+              <a href="catalog.html" class="btn btn-primary btn-sm">Pilih Template</a>
+            </div>
           </div>
         </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/2.png" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Tema Undangan 2</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="section-head">
+      <h2>Layanan Unggulan <span>XLVI.ID</span></h2>
+    </div>
+    
+    <template x-for="(srv, index) in services" :key="srv.id">
+      <div class="service-row" :class="{'reverse': index % 2 !== 0}">
+        <div class="service-img">
+          <img :src="srv.image" :alt="srv.title">
         </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/3.png" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Tema Undangan 3</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
-        </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/4.png" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Tema Undangan 4</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
-        </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/compony-1.jpg" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Company Profile 1</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
-        </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/compony-2.jpg" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Company Profile 2</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
-        </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/compony-3.jpg" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Company Profile 3</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
-        </div>
-        <div class="custom-card">
-          <div class="custom-card-img">
-            <img src="images/portfolio/compony-4.jpg" class="" alt="Card image" />
-          </div>
-          <div class="custom-card-body">
-            <h5 class="custom-card-title">Company Profile 4</h5>
-            <p class="custom-card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="custom-btn"><i class="bx bx-eyes"></i> Live Preview</a>
-          </div>
+        <div class="service-text">
+          <h3 x-text="'Layanan ' + (index+1) + ': ' + srv.title"></h3>
+          <p x-text="srv.desc"></p>
+          <ul class="service-features">
+            <template x-for="feat in srv.features">
+              <li x-text="feat"></li>
+            </template>
+          </ul>
+          <a :href="srv.link ? srv.link : waLink(srv.waText)" target="_blank" class="btn btn-primary" x-text="srv.btnText"></a>
         </div>
       </div>
-    </section>
-    <section class="features" id="features">
-      <div class="heading">
-        <h2>Kenapa Memilih <span>XLVI.ID </span></h2>
-      </div>
+    </template>
+  </section>
 
-      <div class="features-container">
-        <div class="features-box">
-          <i class="bx bx-timer"></i>
-          <h3>Cepat & Handal</h3>
-          <p>Pengerjaan cepat tanpa mengorbankan kualitas desain.</p>
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="section-head">
+      <h2>Pilih Paket Sesuai <span>Kebutuhanmu</span></h2>
+    </div>
+    
+    <div class="pricing-grid">
+      <template x-for="pkg in packages" :key="pkg.name">
+        <div class="pricing-card" :class="{'popular': pkg.popular}">
+          <template x-if="pkg.popular">
+            <div class="badge">Paling Populer</div>
+          </template>
+          <h3 x-text="pkg.name"></h3>
+          <div class="price"><span x-text="pkg.price" style="font-size: 48px; font-weight: 800; color: #fff;"></span><span x-text="pkg.period"></span></div>
+          <p class="price-desc" x-text="pkg.desc"></p>
+          <ul class="pricing-list">
+            <template x-for="inc in pkg.includes">
+              <li x-text="inc"></li>
+            </template>
+          </ul>
+          <a :href="waLink(pkg.waText)" target="_blank" class="btn" :class="pkg.popular ? 'btn-primary' : 'btn-secondary'">Pilih Paket</a>
         </div>
-        <div class="features-box">
-          <i class="bx bx-wallet"></i>
-          <h3>Harga Terjangkau</h3>
-          <p>Layanan premium dengan harga yang masuk akal—siap digunakan untuk berbagai kebutuhan.</p>
+      </template>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="section-head">
+      <h2>Apa Kata <span>Client XLVI.ID</span></h2>
+    </div>
+    
+    <div class="testimonial-grid">
+      <template x-for="testi in testimonials">
+        <div class="testi-card">
+          <p x-text="testi.quote"></p>
+          <div class="rating">★★★★★</div>
+          <div class="testi-info">
+            <div class="testi-avatar"></div>
+            <div class="testi-user">
+              <h5 x-text="testi.user"></h5>
+              <span x-text="testi.role"></span>
+            </div>
+          </div>
         </div>
-        <div class="features-box">
-          <i class="bx bx-palette"></i>
-          <h3>Desain Elegan</h3>
-          <p>Desain modern yang disesuaikan dengan kebutuhan dan identitas Anda.</p>
-        </div>
-      </div>
-    </section>
+      </template>
+    </div>
+  </section>
 
-    <section id="servies" class="servies">
-      <div class="heading">
-        <h2>Layanan Unggulan dari <span>XLVI.ID </span></h2>
-      </div>
-      <div class="servies-container">
-        <div class="servies-content">
-          <span class="btn-content">
-            <i class="bx bxs-florist"></i>
-          </span>
-          <h3>Digital Wedding Invitations</h3>
-          <p>Website Undangan Digital yang bisa dikustomisasi sesuai keinginan. Lengkap dengan RSVP online, galeri foto, amplop digital, hingga navigasi lokasi—buat momen spesialmu makin berkesan.</p>
-          <a href="#" class="btn-content">Lihat Demo</a>
-        </div>
+  <!-- Final CTA Section -->
+  <div class="final-cta">
+    <h2>Siap Punya Website yang Elegan dan Siap Closing?</h2>
+    <p>Mulai dari undangan digital sampai website bisnis profesional, XLVI.ID siap bantu kebutuhanmu.</p>
+    <div class="hero-btns" style="justify-content: center;">
+      <a href="contact.html" class="btn btn-primary">Hubungi Sekarang</a>
+      <a href="catalog.html" class="btn btn-secondary">Lihat Katalog</a>
+    </div>
+  </div>
 
-        <div class="servies-image">
-          <img src="images/servies.png" alt="servies" />
-        </div>
-      </div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 XLVI.ID - Digital Elegance. All Rights Reserved.</p>
+    <ul class="footer-nav">
+      <template x-for="link in navLinks">
+        <li><a :href="link.url" x-text="link.name"></a></li>
+      </template>
+    </ul>
+  </footer>
 
-      <div class="servies-container reverse">
-        <div class="servies-image">
-          <img src="images/servies2.png" alt="servies" />
-        </div>
-        <div class="servies-content">
-          <span class="btn-content">
-            <i class="bx bxs-dashboard"></i>
-          </span>
-          <h3>CV Modern & ATS Friendly</h3>
-          <p>Bikin CV-mu dilirik HRD! Kami bantu kamu tampil standout dengan desain CV modern yang mudah dibaca sistem ATS, profesional, dan terstruktur sesuai standar rekrutmen terbaru.</p>
-
-          <a href="#" class="btn-content">Lihat Demo</a>
-        </div>
-      </div>
-
-      <div class="servies-container">
-        <div class="servies-content">
-          <span class="btn-content">
-            <i class="bx bxs-business"></i>
-          </span>
-          <h3>Company Profile Websites</h3>
-          <p>Bangun kepercayaan klien dan partner dengan website profil bisnis yang informatif, elegan, dan sesuai dengan branding usaha kamu.</p>
-          <a href="#" class="btn-content">Lihat Demo</a>
-        </div>
-
-        <div class="servies-image">
-          <img src="images/servies3.png" alt="servies" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Offer -->
-    <!-- about section  -->
-    <section class="about" id="about">
-      <div class="about-img">
-        <img src="images/home.png" alt="" />
-      </div>
-
-      <div class="about-content">
-        <h3>Siap Tampil Lebih Profesional?</h3>
-        <h2>Konsultasi <span>Gratis</span></h2>
-        <p>Konsultasikan kebutuhan website kamu bersama tim XLVI.ID dan kami bantu wujudkan hasil terbaik!</p>
-        <a href="#" class="btn">Konsultasi Sekarang</a>
-      </div>
-    </section>
-
-    <!-- Message -->
-      <section class="contact" id="contact">
-        <div class="heading">
-          <h2 >Contact <span>Me!</span></h2>
-        </div>
-
-      <form action="#">
-        <div class="input-box">
-          <input type="text" placeholder="Full Name" />
-          <input type="number" placeholder="Phone Number" />
-        </div>
-        <!-- <div class="input-box">
-          <input type="number" placeholder="Mobile Phone" />
-          <input type="text" placeholder="Email Subject" />
-        </div> -->
-        <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-        <input type="submit" value="Send Message" class="btn" />
-      </form>
-    </section>
-
-     <footer class="footer">
-      <div class="footer-text">
-        <p>Copyright &copy; 2023 by xlvi.id | All Rights Reserved</p>
-      </div>
-      <div class="footer-iconTop">
-        <a href="#home"><i class="bx bx-up-arrow-alt"></i></a>
-      </div>
-    </footer>
-    <script src="assets/script.js"></script>
-  </body>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
 </html>
